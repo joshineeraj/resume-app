@@ -1,0 +1,32 @@
+<div >
+  <h1>
+    Processing a full form
+  </h1>Post a full form with a file and other inputs (text, etc) to the server.<br>
+  <br>
+  <form ng-upload="uploadComplete(user)" action="/users">
+    <p>
+      <label>Fullname:</label> <input type="text" name="fullname" ng-model="user.fullname">
+    </p>
+    <p>
+      <label>Gender:</label> <input type="text" name="gender" ng-model="user.gender">
+    </p>
+    <p>
+      <label>Favourite Color:</label> <input type="text" name="color" ng-model="user.color">
+    </p>
+    <p>
+      <label>Upload File:</label> <input type="file" name="file" ng-model="user.file" />
+    </p>
+    <p>
+      <input type="submit" class="btn" value="Submit" ng-disabled="$isUploading"/>
+    </p>
+  </form>
+  <div class="alert alert-info">
+    Server Response: {{response | json}}
+  </div>
+  <div>
+    Fullname: <b>{{response.fullname}}</b><br>
+    Gender: <b>{{response.gender}}</b><br>
+    Favourite Color: <span ng-style="response.style">{{response.color}}</span><br>
+    File: {{response.file}}
+  </div>
+</div>

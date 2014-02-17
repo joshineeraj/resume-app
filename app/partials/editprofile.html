@@ -1,0 +1,90 @@
+<div class="row">
+	<div class="col-lg-2">
+    	&nbsp;
+    </div>
+    <div class="col-lg-8">
+    	<h2>Edit User Profile</h2>
+    	<form role="form">
+        	 <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" class="form-control" placeholder="Text input" ng-model="user.name">
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+            	<input type="email" class="form-control" id="exampleInputEmail1" ng-model="user.email" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label>Qualification</label>
+            <input type="text" class="form-control" ng-model="user.qualification" placeholder="Text input">
+            </div>
+            <div class="form-group">
+                <label>Mobile Number</label>
+            <input type="text" class="form-control" ng-model="user.mobile" placeholder="Text input">
+            </div>
+            <div class="form-group">
+                <label>Skills</label>
+            <input type="text" class="form-control" ng-model="user.skills" placeholder="Text input">
+            </div>
+            <div class="form-group">
+                <label>Location</label>
+            <input type="text" class="form-control" ng-model="user.location" placeholder="Text input">
+            </div>
+            <div class="form-group">
+                <label>Passing Year</label>
+            <input type="text" class="form-control" ng-model="user.year_passing" placeholder="Text input">
+            </div>
+            <div class="form-group">
+                <label>Gender</label>
+            <select class="form-control"  ng-model="user.gender" ng-options="obj.value as obj.text for obj in genders">
+              <option value="">-- choose gender --</option>
+            </select>
+            </div>
+            <div class="form-group">
+                <label>Current Employer</label>
+            <input type="text" class="form-control" ng-model="user.current_employer" placeholder="Text input">
+            </div>
+            <button type="submit" class="btn btn-default" ng-show = "user._id" ng-click="updateUser(user)">Update User</button>
+        </form>
+	</div>
+    <div class="col-lg-2">
+    	&nbsp;
+    </div>
+</div>
+ 
+
+<!--<h2>Edit User profile</h2>
+<div>
+    <p>
+        <input type="text" ng-model="user.name" placeholder="Name of the user">
+    </p>
+    <p>
+        <input type="text" ng-model="user.email" placeholder="Email">
+    </p>
+    <p>
+        <input type="text" ng-model="user.qualification" placeholder="Qualification">
+    </p>
+    <p>
+        <input type="text" ng-model="user.mobile" placeholder="Mobile">
+    </p>
+    <p>
+        <input type="text" ng-model="user.skills" placeholder="Skills">
+    </p>
+    <p>
+        <input type="text" ng-model="user.location" placeholder="Location">
+    </p>
+    <p>
+        <input type="text" ng-model="user.year_passing" placeholder="Year of passing">
+    </p>
+    <p>
+        <select ng-model="user.gender" ng-options="obj.value as obj.text for obj in genders">
+              <option value="">-- choose gender --</option>
+        </select>
+    </p>
+    <p>
+        <input type="text" ng-model="user.current_employer" placeholder="Current Employer">
+    </p>
+
+    <p>
+        <button ng-show = "user._id" ng-click="updateUser(user)">Update User</button>
+    </p>
+</div>-->

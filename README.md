@@ -1,4 +1,4 @@
-resume-app
-==========
+resume-angular-mongo
+====================
 
-resume-app
+Resume Management MongoDB Angular JS

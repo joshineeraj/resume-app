@@ -1,0 +1,39 @@
+#Created: 17-02-2014
+Legends: 
+    To do : +++++++++++++++++++++++++++++++++++++++++++++++
+    Done: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    Working: ====================
+
+Format: 
+    1. SN: <Serial Number>
+    2. Title: <Title of the work in hand>
+    3. Name: <Name of the assignee>
+    4. Details: <Details of the task>
+    5. Modules: <Modules and which would need, reflect the changes>
+
+All New entries will be entered on Newest-on-top basis.
+
++++++++++++++++++++++++++++++++++++++++++++++++
+    SN: 2
+    Title: Register the new user into database through FaceBook
+    Name: Neeraj Joshi
+    Details: Facebook registration doesn't do an entry into database. 
+             It will have to check if there is a new user, if it is new, 
+             register it into database. In case of returning user, just 
+             check its entry in DB and log him in.
+    Modules: controllers.LoginCtrl
+                        .UsersCtrl
+             services.FbService
+                     .UsersService
++++++++++++++++++++++++++++++++++++++++++++++++ 
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    SN: 1
+    Title: Login using FaceBook
+    Name: Neeraj Joshi
+    Details: Simple facebook login. Will not store data into facebook. But will
+             Just autheticate the user through facebook and then give him access
+             accordingly.
+    Modules: controllers.LoginCtrl
+             services.FbService (New)
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX

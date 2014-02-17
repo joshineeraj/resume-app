@@ -1,0 +1,20 @@
+{
+  "name": "Resume-angular-mongo",
+  "version": "0.0.1",
+  "homepage": "https://github.com/joshineeraj/resume-angular-mongo",
+  "authors": [
+    "harsh.lamba <harsh.lamba@3pillarglobal.com>"
+  ],
+  "description": "Application used for resume management",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/lib",
+    "test",
+    "tests"
+  ]
+}
