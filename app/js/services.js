@@ -9,13 +9,30 @@ angular.module('myApp.services', []).
   value('version', '0.1')
   .factory("usersService", function($http, Restangular, $q, $timeout){
 
+    // var _getUsers = function(){
+    	// console.log("inside ankit get user");
+        // var deferred = $q.defer();
+        // Restangular.all('users').getList().then(function (err,data) {
+                        // if (!data){
+                        	// deferred.reject(err);
+                        // }
+                        // else{
+                        // deferred.resolve(data);
+                        // console.log("Server working Properly");}
+                // });
+                // return deferred.promise;
+    // }
     var _getUsers = function(){
         var deferred = $q.defer();
-        Restangular.all('users').getList().then(function (data) {
+        Restangular.all('users').getList().then(function (data, err) {
                     var user_data = data;
-                    $timeout(function() {
-                        deferred.resolve(user_data);
-                        }, 1000);
+                    if(user_data){
+                    	deferred.resolve(user_data);
+                    	console.log("correct");
+                    }else{
+                    	deferred.reject(err);
+                    	console.log("wrong");
+                    }
                 });
                 return deferred.promise;
     }

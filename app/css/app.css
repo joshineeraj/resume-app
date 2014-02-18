@@ -175,3 +175,29 @@ social{
 div.dhtmlx_window_active, div.dhx_modal_cover_dv {
     position: fixed !important; 
 }
+
+.blog-post {
+	margin-bottom:40px;
+	margin-top:20px;
+}
+
+.blog-post h3 label{
+	margin:20px 0 0 30px;
+}
+
+.blog-post h6 label {
+	margin:0px 0 0 30px;
+}
+
+.user-photo {
+	background:url(../img/photo.png) no-repeat;
+	width:120px;
+	height:120px;
+	border-radius: 50%;
+}
+@media screen and (max-width:640px){
+	.col-xs-7, .col-xs-3{
+		width:100% !important;
+		text-align:center;
+	}
+}

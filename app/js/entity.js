@@ -6,7 +6,7 @@ factory('genders', function(){
 	var _gender = [{value:'Male', text:'Male'}, 
 				  {value:'Female', text:'Female'}];	
 	return{gender: _gender};
-})
+}) 
 .factory('newUsers', function(){
 	var _newUser = function(users){
 		var name = users.name || '';

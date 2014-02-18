@@ -246,10 +246,10 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 .controller('LogoutCtrl', function($scope, $rootScope,$location, $timeout, Facebook){
 	alert("hello");
 	$scope.logout = function() {
+	  $rootScope.is_logged = false;
       Facebook.logout(function() {
     	  $timeout(function() {
         	$scope.logged = false;
-            $rootScope.is_logged = false;
           $rootScope.logged_in_user = {};
         });
       });
@@ -257,4 +257,3 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	$scope.logout();
 });
 
- 
