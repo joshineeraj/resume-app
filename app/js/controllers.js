@@ -45,11 +45,14 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 			}
 		}
 		
-		$scope.emailmatch = function(user){
+		$scope.cancel = function(){
+			$location.path('/login');
+		   }
+		
+		$scope.emailmatch = function(email){
 			$scope.alerts = onAlert.alerts;
-			usersService.chkemailid(user.email).then(function(user) {
-				if(user[0].email){
-					// alert("Email is already exist! Please try with another email");
+			usersService.chkemailid(email).then(function(user) {
+				if(!user.success){
 					document.getElementById("register").disabled = true;
 					onAlert.errorEvent("Email already exist! Please try with another email");
 				}else{
@@ -133,7 +136,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
       })
   
 	  
-.controller('LoginCtrl', function($scope, $rootScope, $location, usersService, cfpLoadingBar, $timeout, Facebook, FbService){
+.controller('LoginCtrl', function($scope, $rootScope, $location, usersService, cfpLoadingBar, $timeout, Facebook, FbService, newUsers){
     // And some fancy flags to display messages upon user status change
 	
 	// Here, usually you should watch for when Facebook is ready and loaded
@@ -185,7 +188,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
         	$scope.is_logged_in();
         }
       
-      });
+      }, { scope: 'email' });
      };
      
      /**
@@ -197,9 +200,28 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
     		  $timeout(function() {
                 $rootScope.logged_in_user = response;
                 $scope.my_pic();
+                $scope.checkEmail();
               });
     	  });
       };
+      $scope.checkEmail = function(){
+    	  var fb_email = $rootScope.logged_in_user.email;
+    	  usersService.chkemailid(fb_email).then(function(user) {
+    		  if(user.success){
+				console.log("New user");
+				$scope.newUser = newUsers.newUser($rootScope.logged_in_user);
+				$scope.addUser($scope.newUser)
+    		  }else{
+    			  console.log("Existing user");
+    		  }
+    	  });
+		};
+	  $scope.addUser = function(user){
+			usersService.addNewUser(user).then(function(user) {
+				console.log("Added FB user to DB");
+			});
+	  }
+      
       $scope.my_pic = function() {
     	  FbService.my_pic().then(function(response){
     		  /**
@@ -238,12 +260,12 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 })
 
 .controller('LogoutCtrl', function($scope, $rootScope,$location, $timeout, Facebook){
-	alert("hello");
+	alert("User Logged-out");
 	$scope.logout = function() {
+	  $rootScope.is_logged = false;
       Facebook.logout(function() {
     	  $timeout(function() {
         	$scope.logged = false;
-            $rootScope.is_logged = false;
           $rootScope.logged_in_user = {};
         });
       });
@@ -251,4 +273,3 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	$scope.logout();
 });
 
- 

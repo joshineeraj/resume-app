@@ -3,57 +3,55 @@
     	&nbsp;
     </div>
     <div class="col-lg-8">
-    	<h2>View User profile</h2>
-     	<div class="blog-post">
-        	<h4>User Name</h4>
-             <label ng-model='user.name' ng-bind='user.name'>
-        	 </label>
+    	<h2>User profile</h2>
+        <div class="col-xs-3">
+        	<div><img src="img/photo.png" width="120" height="120" alt="" class="user-photo"/></div>
         </div>
-        <div class="blog-post">
-        	<h4>User Email</h4>
-             <label ng-model='user.email' ng-bind='user.email'>
-             </label>
-        </div>
-        <div class="blog-post">
-        	<h4>Qualification</h4>
-            <label ng-model='user.qualification' ng-bind='user.qualification'>
-             </label>
-        </div>
-        <div class="blog-post">
-        	<h4>Mobile Number</h4>
-             <label ng-model='user.mobile' ng-bind='user.mobile'>
-             </label>
-        </div>
-        <div class="blog-post">
-        	<h4>Skills</h4>
-             <label ng-model='user.skills' ng-bind='user.skills'>
-             </label>
-        </div>
-        <div class="blog-post">
-        	<h4>Location</h4>
-            <label ng-model='user.location' ng-bind='user.location'>
-             </label>
-
-        </div>
-    	<div class="blog-post">
-        	<h4>Passing Year</h4>
-            <label ng-model='user.year_passing' ng-bind='user.year_passing'>
-             </label>
-        </div>
-        <div class="blog-post">
-        	<h4>Gender</h4>
-            <label ng-model='user.gender' ng-bind='user.gender'>
-             </label>
-        </div>
-        <div class="blog-post">
-        	<h4>Current Employer</h4>
-              <p>
-        		{{user.current_employer}}
-    		  </p>
-
-        </div>
- 
-    </div>
+        <div class="col-xs-9">
+                <div class="blog-post">
+                    <h2><label ng-model='user.name' ng-bind='user.name'>
+                     </label></h2>
+                     <h5>  <label ng-model='user.email' ng-bind='user.email'>
+                     </label></h5>  
+                    <h5> <label ng-model='user.mobile' ng-bind='user.mobile'>
+                     </label></h5>
+                </div>
+                <div class="blog-post">
+                    <h4>Qualification</h4>
+                    <label ng-model='user.qualification' ng-bind='user.qualification' class="boldTxt">
+                     </label>
+                </div>
+               
+                <div class="blog-post">
+                    <h4>Skills</h4>
+                     <label ng-model='user.skills' ng-bind='user.skills' class="boldTxt">
+                     </label>
+                </div>
+                <div class="blog-post">
+                    <h4>Location</h4>
+                    <label ng-model='user.location' ng-bind='user.location' class="boldTxt">
+                     </label>
+        
+                </div>
+                <div class="blog-post">
+                    <h4>Passing Year</h4>
+                    <label ng-model='user.year_passing' ng-bind='user.year_passing' class="boldTxt">
+                     </label>
+                </div>
+                <div class="blog-post">
+                    <h4>Gender</h4>
+                    <label ng-model='user.gender' ng-bind='user.gender' class="boldTxt">
+                     </label>
+                </div>
+                <div class="blog-post">
+                    <h4>Current Employer</h4>
+                      <p class="boldTxt">
+                        {{user.current_employer}}
+                      </p>
+        
+                </div>
+         		</div>
+            </div>
     <div class="col-lg-2">
     	&nbsp;
     </div>
