@@ -245,4 +245,3 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	$scope.logout();
 });
 
- 
