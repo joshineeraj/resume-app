@@ -43,7 +43,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		
 		$scope.emailmatch = function(email){
 			usersService.chkemailid(email).then(function(user) {
-				if(user[0].email){
+				if(!user.success){
 					alert("Email is already exist! Please try with another email");
 					document.getElementById("register").disabled = true;
 				}else{
@@ -179,7 +179,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
         	$scope.is_logged_in();
         }
       
-      });
+      }, { scope: 'email' });
      };
      
      /**
@@ -191,9 +191,21 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
     		  $timeout(function() {
                 $rootScope.logged_in_user = response;
                 $scope.my_pic();
+                $scope.checkEmail();
               });
     	  });
       };
+      $scope.checkEmail = function(){
+    	  var fb_email = $rootScope.logged_in_user.email;
+    	  usersService.chkemailid(fb_email).then(function(user) {
+    		  if(user.error){
+				alert("Email is already exist! Please try with another email");
+    		  }else{
+    			  alert("New user");
+    		  }
+    	  });
+		};
+      
       $scope.my_pic = function() {
     	  FbService.my_pic().then(function(response){
     		  /**

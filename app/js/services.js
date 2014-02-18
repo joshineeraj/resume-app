@@ -48,8 +48,7 @@ angular.module('myApp.services', []).
 	var _chkemailid = function(user_email){
     	var userInfo = {email : user_email}
     	var user = Restangular.all('validate_email').post(userInfo);
-		user.email;
-    	return user;
+		return user;
     }
 	
 	
