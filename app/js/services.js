@@ -51,8 +51,6 @@ angular.module('myApp.services', []).
 		user.email;
     	return user;
     }
-	
-	
 
     return{
         getUsers: _getUsers,

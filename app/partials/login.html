@@ -3,7 +3,11 @@
     &nbsp;
     </div>
     <div class="col-lg-4">
-     <form class="form-signin" role="form">
+     <form name='loginForm' class="form-signin" role="form">
+        <div ng-show='loginForm.$invalid' class="alert alert-warning alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-disabled='myForm.$invalid'>&times;</button>
+            <strong>Warning!</strong> Something went wrong.
+        </div>
             <h2 class="form-signin-heading">Login Panel</h2>
             <div class="form-group">
                 <lable>User Name</lable>
@@ -22,6 +26,9 @@
                 <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="logIn(user)">Sign in</button>
                 <a href="#/register">Register</a>
                 <button type="button" class="btn btn-primary btn-large" data-ng-show="!logged" data-ng-disabled="!facebookReady" data-ng-click="intentLogin()">Login with Facebook</button>
+            </div>
+            <div ng-repeat="(key,val) in alerts" class="alert {{key}}">
+                <div ng-repeat="msg in val">{{msg}}</div>
             </div>
           </form>
           

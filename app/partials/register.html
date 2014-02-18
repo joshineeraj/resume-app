@@ -2,16 +2,21 @@
 <div class="row">
 	<div class="col-lg-2">
     </div>
+
     <div class="col-lg-8">
+    <div ng-repeat="(key,val) in alerts" class="alert {{key}}">
+      <div ng-repeat="msg in val">{{msg}}</div>
+    </div>
     <h2>Registration Form</h2>
-    	<form role="form" name='myForm'>
+
+    	<form role="form" name='myForm '>
           <div class="form-group">
             <label>Your Name</label>
-            <input type="text" class="form-control" ng-model="user.name" placeholder="Your name" required autofocus>
+            <input type="text" class="form-control" class="set-error-succes" ng-model="user.name" placeholder="Your name" required autofocus>
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" ng-model="user.email" ng-blur='emailmatch(user.email)' placeholder="Enter email" required>
+            <input type="email" class="form-control" id="exampleInputEmail1" ng-model="user.email" ng-blur='emailmatch(user)' placeholder="Enter email" required>
           </div>
            <div class="form-group"> 
             <label>User Name</label>
@@ -28,6 +33,7 @@
           <button type="submit" class="btn btn-default" id='register' ng-click="addNewUser(user)" ng-disabled='myForm.$invalid'>Submit</button>
           <button ng-model="clear" type="button" class="btn btn-default">Clear</button>
           <button ng-model="cancel" type="button" class="btn btn-default">Cancel</button>
+          
         </form>
     </div>
     <div class="col-lg-2">
