@@ -255,7 +255,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 })
 
 .controller('LogoutCtrl', function($scope, $rootScope,$location, $timeout, Facebook){
-	alert("hello");
+	alert("User Logged-out");
 	$scope.logout = function() {
 	  $rootScope.is_logged = false;
       Facebook.logout(function() {
