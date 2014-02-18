@@ -127,7 +127,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
       })
   
 	  
-.controller('LoginCtrl', function($scope, $rootScope, $location, usersService, cfpLoadingBar, $timeout, Facebook, FbService){
+.controller('LoginCtrl', function($scope, $rootScope, $location, usersService, cfpLoadingBar, $timeout, Facebook, FbService, newUsers){
     // And some fancy flags to display messages upon user status change
 	
 	// Here, usually you should watch for when Facebook is ready and loaded
@@ -198,13 +198,20 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
       $scope.checkEmail = function(){
     	  var fb_email = $rootScope.logged_in_user.email;
     	  usersService.chkemailid(fb_email).then(function(user) {
-    		  if(user.error){
-				alert("Email is already exist! Please try with another email");
+    		  if(user.success){
+				console.log("New user");
+				$scope.newUser = newUsers.newUser($rootScope.logged_in_user);
+				$scope.addUser($scope.newUser)
     		  }else{
-    			  alert("New user");
+    			  console.log("Existing user");
     		  }
     	  });
 		};
+	  $scope.addUser = function(user){
+			usersService.addNewUser(user).then(function(user) {
+				console.log("Added FB user to DB");
+			});
+	  }
       
       $scope.my_pic = function() {
     	  FbService.my_pic().then(function(response){
