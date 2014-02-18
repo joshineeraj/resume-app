@@ -41,6 +41,10 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 			}
 		}
 		
+		$scope.cancel = function(){
+			$location.path('/login');
+		   }
+		
 		$scope.emailmatch = function(email){
 			usersService.chkemailid(email).then(function(user) {
 				if(!user.success){
