@@ -137,7 +137,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
       })
   
 	  
-.controller('LoginCtrl', function($scope, $rootScope, $location, usersService, cfpLoadingBar, $timeout, Facebook, FbService, newUsers){
+.controller('LoginCtrl', function($scope, $rootScope, $location, usersService, cfpLoadingBar, $timeout, Facebook, FbService, newUsers, onAlert){
     // And some fancy flags to display messages upon user status change
 	
 	// Here, usually you should watch for when Facebook is ready and loaded
@@ -150,7 +150,6 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	$scope.logIn = function(user){
 		usersService.chkLogin(user).then(function(user) {
 			if ( (($scope.user.email) == (user[0].email)) && (($scope.user.password) == (user[0].password)) ){
-				alert("Welcome");
 				$rootScope.is_logged = true;
 				window.sessionStorage.setItem("is_logged", true);
 				cfpLoadingBar.start();
@@ -262,7 +261,6 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 })
 
 .controller('LogoutCtrl', function($scope, $rootScope,$location, $timeout, Facebook){
-	alert("User Logged-out");
 	$scope.logout = function() {
 	  $rootScope.is_logged = false;
 	  window.sessionStorage.setItem("is_logged", false);

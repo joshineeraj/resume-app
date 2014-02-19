@@ -3,31 +3,7 @@
 /* Directives */
 
 
-angular.module('myApp.directives', []).
-directive('passwordMatch', [function() {
-	 return {
-        restrict: 'A',
-        scope:true,
-        require: 'ngModel',
-        link: function (scope, elem , attrs, control) {
-            var checker = function () {
- 
-                //get the value of the first password
-                var e1 = scope.$eval(attrs.ngModel); 
-                
-                //get the value of the other password  
-                var e2 = scope.$eval(attrs.passwordMatch);
-                console.log(e1==e2);
-                if(e1 == e2){
-                    control.$setValidity("The two passwords matched", true);
-                }else{
-                    control.$setValidity("The two passwords must match.", false);
-                }
-            };
-        }
-    };
-}])
-
+angular.module('myApp.directives', [])
   .directive( 'social', function() {
 	  return {
 		     restrict: 'E',
@@ -58,5 +34,17 @@ directive('passwordMatch', [function() {
 		       element.append(tag);
 		     }
 		   }
-  });
+  })
+
+.directive('alerts', function() {
+	return {
+		restrict: 'E',
+		compile: function(element, attrs){
+		var tag ='<div ng-repeat="(key,val) in alerts" class="alert {{key}}">' +
+      				'<div ng-repeat="msg in val">{{msg}}</div>' +
+    			 '</div>';
+    		element.append(tag);
+		}
+	}
+});
   
