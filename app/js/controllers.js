@@ -144,7 +144,9 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	  
 .controller('LoginCtrl', function($scope, $rootScope, $location, usersService, cfpLoadingBar, $timeout, Facebook, FbService, newUsers){
     // And some fancy flags to display messages upon user status change
-	
+	if (window.sessionStorage.getItem("is_logged")){
+				$location.path('/users');
+	}
 	// Here, usually you should watch for when Facebook is ready and loaded
 	  $scope.$watch(function() {
 	    return Facebook.isReady(); // This is for convenience, to notify if Facebook is loaded and ready to go.
@@ -164,6 +166,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 				alert("Email or Password is incorrect.");
 				$location.path('/login');
 			}
+			
 		});
 	}
 	
@@ -285,4 +288,3 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
     }
 	$scope.logout();
 });
-
