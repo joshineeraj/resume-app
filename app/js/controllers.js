@@ -9,6 +9,11 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 			usersService.getUsers().then(
 				function (data) {
 				$rootScope.is_logged = window.sessionStorage.getItem('is_logged');
+				$rootScope.logged_in_user = JSON.parse(window.sessionStorage.getItem("logged_in_user"));
+				if ($rootScope.logged_in_user){
+					$rootScope.logged_in_user.pic = JSON.parse(window.sessionStorage.getItem("logged_in_user_pic"));
+				}
+				
 					if ($rootScope.is_logged == "true")
 						{
 							$scope.users = data;
@@ -139,7 +144,9 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	  
 .controller('LoginCtrl', function($scope, $rootScope, $location, usersService, cfpLoadingBar, $timeout, Facebook, FbService, newUsers, onAlert){
     // And some fancy flags to display messages upon user status change
-	
+	if (window.sessionStorage.getItem("is_logged") == true){
+				$location.path('/users');
+	}
 	// Here, usually you should watch for when Facebook is ready and loaded
 	  $scope.$watch(function() {
 	    return Facebook.isReady(); // This is for convenience, to notify if Facebook is loaded and ready to go.
@@ -158,6 +165,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 				alert("Email or Password is incorrect.");
 				$location.path('/login');
 			}
+			
 		});
 	}
 	
@@ -177,6 +185,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
     $scope.is_logged_in = function() {
    	 	$scope.logged = true;
         $rootScope.is_logged = true;
+        window.sessionStorage.setItem("is_logged", true);
         $scope.me();
     }
     
@@ -200,6 +209,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
     		  console.log(response);
     		  $timeout(function() {
                 $rootScope.logged_in_user = response;
+                window.sessionStorage.setItem("logged_in_user", JSON.stringify($rootScope.logged_in_user));
                 $scope.my_pic();
                 $scope.checkEmail();
               });
@@ -230,6 +240,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
                */
     		  $timeout(function() {
     			  $rootScope.logged_in_user.pic = response;
+    			  window.sessionStorage.setItem("logged_in_user_pic", JSON.stringify($rootScope.logged_in_user.pic));
               });
     	  });
           $location.path('/users');
@@ -268,9 +279,10 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
     	  $timeout(function() {
         	$scope.logged = false;
           $rootScope.logged_in_user = {};
+          window.sessionStorage.setItem("logged_in_user", JSON.stringify($rootScope.logged_in_user));
+          
         });
       });
     }
 	$scope.logout();
 });
-
