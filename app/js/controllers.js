@@ -10,7 +10,10 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 				function (data) {
 				$rootScope.is_logged = window.sessionStorage.getItem('is_logged');
 				$rootScope.logged_in_user = JSON.parse(window.sessionStorage.getItem("logged_in_user"));
-				$rootScope.logged_in_user.pic = JSON.parse(window.sessionStorage.getItem("logged_in_user_pic"));
+				if ($rootScope.logged_in_user){
+					$rootScope.logged_in_user.pic = JSON.parse(window.sessionStorage.getItem("logged_in_user_pic"));
+				}
+				
 					if ($rootScope.is_logged == "true")
 						{
 							$scope.users = data;
