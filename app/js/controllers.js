@@ -145,7 +145,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 .controller('LoginCtrl', function($scope, $rootScope, $location, usersService, cfpLoadingBar, $timeout, Facebook, FbService, newUsers, onAlert){
     // And some fancy flags to display messages upon user status change
 	if (window.sessionStorage.getItem("is_logged") == true){
-				$location.path('/users');
+		$location.path('/users');
 	}
 	// Here, usually you should watch for when Facebook is ready and loaded
 	  $scope.$watch(function() {
