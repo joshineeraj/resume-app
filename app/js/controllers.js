@@ -178,6 +178,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
     $scope.is_logged_in = function() {
    	 	$scope.logged = true;
         $rootScope.is_logged = true;
+        window.sessionStorage.setItem("is_logged", true);
         $scope.me();
     }
     
