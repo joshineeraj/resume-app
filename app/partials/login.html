@@ -3,7 +3,8 @@
     &nbsp;
     </div>
     <div class="col-lg-4">
-     <form class="form-signin" role="form">
+     <form name='loginForm' class="form-signin" role="form">
+       
             <h2 class="form-signin-heading">Login Panel</h2>
             <div class="form-group">
                 <lable>User Name</lable>
@@ -23,6 +24,7 @@
              <div class="form-group"></div>
             <div class="form-group">
                 <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="logIn(user)">Sign in</button>
+
 		   </div>
              <div class="form-group">
              	  <button class="btn btn-lg btn-primary btn-block" type="button"  data-ng-show="!logged" data-ng-disabled="!facebookReady" data-ng-click="intentLogin()">Login with Facebook</button>

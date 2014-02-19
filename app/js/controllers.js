@@ -23,7 +23,8 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		$scope.getUsers();
 		cfpLoadingBar.complete();
 	})
-.controller("UsersRegisterCtrl", function ($scope,$rootScope, $location, $timeout, usersService, cfpLoadingBar){
+.controller("UsersRegisterCtrl", function ($scope,$rootScope, $location, $timeout, usersService, cfpLoadingBar, onAlert){
+		
 		$scope.addNewUser = function(user){
 			usersService.addNewUser(user).then(function(user) {
 				cfpLoadingBar.start();
@@ -32,13 +33,16 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 			});
 		}
 		$scope.passwordmatch = function(){
+			$scope.alerts = onAlert.alerts;
 			var check = $scope.user.password == $scope.user.password2;
 			if(check){
 				console.log("Password matches");
 				document.getElementById("register").disabled = false;
+				onAlert.successEvent("password matches");
 			}else{
 				console.log("password not matches");
 				document.getElementById("register").disabled = true;
+				onAlert.errorEvent("password not matches");
 			}
 		}
 		
@@ -47,12 +51,13 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		   }
 		
 		$scope.emailmatch = function(email){
+			$scope.alerts = onAlert.alerts;
 			usersService.chkemailid(email).then(function(user) {
 				if(!user.success){
-					alert("Email is already exist! Please try with another email");
 					document.getElementById("register").disabled = true;
+					onAlert.errorEvent("Email already exist! Please try with another email");
 				}else{
-					alert("email-id is available");
+					// alert("email-id is available");
 					document.getElementById("register").disabled = false;
 				}
 			});

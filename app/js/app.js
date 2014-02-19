@@ -8,10 +8,13 @@ angular.module('myApp', [
   'myApp.services',
   'myApp.directives',
   'myApp.controllers',
+  'myApp.alert',
   'restangular',
   'facebook'
 ]).
-config(['$routeProvider', function($routeProvider, $locationProvider, $httpProvider) {
+config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider, $httpProvider) {
+  // $locationProvider.html5Mode(true);
+
   $routeProvider.when('/register', {templateUrl: 'partials/register.html', controller: 'UsersRegisterCtrl'});
   $routeProvider.when('/upload_resume', {templateUrl: 'partials/upload_resume.html', controller: 'uploadResume'});
   $routeProvider.when('/users', {templateUrl: 'partials/users.html', controller: 'UsersCtrl'});
@@ -21,7 +24,8 @@ config(['$routeProvider', function($routeProvider, $locationProvider, $httpProvi
   $routeProvider.when('/login', {templateUrl: 'partials/login.html', controller: 'LoginCtrl'});
   $routeProvider.when('/logout', {templateUrl: 'partials/logout.html', controller: 'LogoutCtrl'});
   $routeProvider.otherwise({redirectTo: '/login'});
-
+  
+  
 }])
 //app_secret = '830cd07bf525cecf18b0572fc4af973c'
 

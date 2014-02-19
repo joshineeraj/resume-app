@@ -67,8 +67,6 @@ angular.module('myApp.services', []).
     	var user = Restangular.all('validate_email').post(userInfo);
 		return user;
     }
-	
-	
 
     return{
         getUsers: _getUsers,

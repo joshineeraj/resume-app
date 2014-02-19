@@ -32,7 +32,7 @@ factory('genders', function(){
 			"location": users.location.name || '',
 			"year_passing": users.year_passing || '',
 			"gender": users.gender || '',
-			"current_employer": users.work[0].employer.name || ''	
+			"current_employer": ('work' in users) ? users.work[0].employer.name : ""
 		}
 		return user;
 	}
