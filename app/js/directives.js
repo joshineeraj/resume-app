@@ -59,3 +59,4 @@ directive('passwordMatch', [function() {
 		     }
 		   }
   });
+  

@@ -8,7 +8,8 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		$scope.getUsers = function(){
 			usersService.getUsers().then(
 				function (data) {
-					if ($rootScope.is_logged == true)
+				$rootScope.is_logged = window.sessionStorage.getItem('is_logged');
+					if ($rootScope.is_logged == "true")
 						{
 							$scope.users = data;
 						}
@@ -146,6 +147,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 			if ( (($scope.user.email) == (user[0].email)) && (($scope.user.password) == (user[0].password)) ){
 				alert("Welcome");
 				$rootScope.is_logged = true;
+				window.sessionStorage.setItem("is_logged", true);
 				cfpLoadingBar.start();
 				$location.path('/users');
 			}else{
@@ -258,6 +260,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	alert("User Logged-out");
 	$scope.logout = function() {
 	  $rootScope.is_logged = false;
+	  window.sessionStorage.setItem("is_logged", false);
       Facebook.logout(function() {
     	  $timeout(function() {
         	$scope.logged = false;
