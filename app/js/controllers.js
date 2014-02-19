@@ -9,6 +9,8 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 			usersService.getUsers().then(
 				function (data) {
 				$rootScope.is_logged = window.sessionStorage.getItem('is_logged');
+				$rootScope.logged_in_user = JSON.parse(window.sessionStorage.getItem("logged_in_user"));
+				$rootScope.logged_in_user.pic = JSON.parse(window.sessionStorage.getItem("logged_in_user_pic"));
 					if ($rootScope.is_logged == "true")
 						{
 							$scope.users = data;
@@ -202,6 +204,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
     		  console.log(response);
     		  $timeout(function() {
                 $rootScope.logged_in_user = response;
+                window.sessionStorage.setItem("logged_in_user", JSON.stringify($rootScope.logged_in_user));
                 $scope.my_pic();
                 $scope.checkEmail();
               });
@@ -232,6 +235,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
                */
     		  $timeout(function() {
     			  $rootScope.logged_in_user.pic = response;
+    			  window.sessionStorage.setItem("logged_in_user_pic", JSON.stringify($rootScope.logged_in_user.pic));
               });
     	  });
           $location.path('/users');
@@ -271,6 +275,8 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
     	  $timeout(function() {
         	$scope.logged = false;
           $rootScope.logged_in_user = {};
+          window.sessionStorage.setItem("logged_in_user", JSON.stringify($rootScope.logged_in_user));
+          
         });
       });
     }
