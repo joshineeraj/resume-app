@@ -55,15 +55,13 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 			});
 			$location.path('/users');
 		};
+		
+		
 		$scope.open = function () {
+			console.log($scope.users)
 			var modalInstance = $modal.open({
-				templateUrl: 'myModalContent.html',
-				//controller: ModalInstanceCtrl,
-				resolve: {
-					items: function () {
-						return $scope.users;
-					}
-				}
+				templateUrl: 'partials/viewprofile.html',
+				controller: 'UserViewCtrl'
 			});
 		}
 		
