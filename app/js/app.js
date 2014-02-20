@@ -6,6 +6,7 @@ angular.module('myApp', [
   'ngRoute',
   'myApp.entity',
   'myApp.services',
+  'myApp.fbService',
   'myApp.directives',
   'myApp.controllers',
   'myApp.alert',
@@ -42,9 +43,8 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
   //RestangularProvider.setRestangularFields({ id: "_id" });
   RestangularProvider.setRestangularFields(
 			{ 
-				id: '_id',
-				email:'email',
-				password:'password'
+				id: '_id'
+				
 			}
 		);
   RestangularProvider.setDefaultHttpFields({
