@@ -57,7 +57,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		$scope.getUsers();
 		cfpLoadingBar.complete();
 	})
-.controller("UsersRegisterCtrl", function ($scope,$rootScope, $location, $timeout, usersService, cfpLoadingBar, onAlert){
+	.controller("UsersRegisterCtrl", function ($scope,$rootScope, $location, $timeout, usersService, cfpLoadingBar, onAlert){
 		
 		$scope.addNewUser = function(user){
 			usersService.addNewUser(user).then(function(user) {
