@@ -57,11 +57,17 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		};
 		
 		
-		$scope.open = function () {
-			console.log($scope.users)
+		$scope.open = function (user) {
+			console.log("current user");
+			console.log(user);
 			var modalInstance = $modal.open({
 				templateUrl: 'partials/viewprofile.html',
-				controller: 'UserViewCtrl'
+				controller: 'MyDialogCtrl',
+				resolve: {
+				  user: function () {
+					return user;
+				  }
+				}
 			});
 		}
 		
@@ -70,6 +76,10 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		};
 		$scope.getUsers();
 		cfpLoadingBar.complete();
+	})
+	.controller('MyDialogCtrl', function ($scope, user) {
+	  // Here, username is 'foo'
+	  $scope.user = user;
 	})
 	.controller("UsersRegisterCtrl", function ($scope,$rootScope, $location, $timeout, usersService, cfpLoadingBar, onAlert){
 		
