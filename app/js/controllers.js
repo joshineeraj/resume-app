@@ -165,13 +165,17 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	  
 	  usersService.removeUser(user).then(function(user) {
 		  var original = user;
-		  original.remove().then(function() {
-		  var deleteUser = confirm('Are you absolutely sure you want to delete?');   
+		  
+		  var deleteUser = confirm('Are you absolutely sure you want to delete?'); 
+			console.log(deleteUser);
 			if (deleteUser) {
 				  alert('Going to delete the user');
-				}
-			  $location.path('/users');
-		  })
+				  original.remove().then(function() {
+						$location.path('/users');
+					})
+			}
+			$location.path('/users');
+		  
       });
 }])
 .controller('uploadResume', function ($scope, usersService) {
@@ -353,17 +357,3 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	};
 	$scope.logout();
 });
-
-
-/*
-.controller("AccordionDemoCtrl", ['$scope','$location', '$routeParams','usersService','newUsers', function($scope, $location, $routeParams, usersService, newUsers
-){
-		//Executes when the controller is created
-		var userId = $routeParams.userId;
-		var user = {id: userId};
-		usersService.fetchUser(user).then(function(user) {
-			var original = user;
-			$scope.user = original;
-		});
-	}])
-	*/
