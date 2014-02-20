@@ -2,8 +2,8 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', 'ngAnimate'])
-	.controller("UsersCtrl", function ($scope,$rootScope, $location, usersService, cfpLoadingBar){
+angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', 'ngAnimate', 'ui.bootstrap'])
+	.controller("UsersCtrl", function ($scope,$rootScope, $location, usersService, cfpLoadingBar, $modal){
 		//Executes when the controller is created
 		$scope.getUsers = function(){
 			usersService.getUsers().then(
@@ -25,9 +25,30 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 				}
 			);
 		}
+		
+		$scope.open = function () {
+			var modalInstance = $modal.open({
+				templateUrl: 'myModalContent.html',
+				//controller: ModalInstanceCtrl,
+				resolve: {
+				items: function () {
+					return $scope.users;
+				}
+			}
+		});
+		}
+		
+		$scope.cancel = function () {
+			$location.path('/users');
+		};
+		
+		
 		$scope.getUsers();
 		cfpLoadingBar.complete();
 	})
+
+	
+	
 .controller("UsersRegisterCtrl", function ($scope,$rootScope, $location, $timeout, usersService, cfpLoadingBar, onAlert){
 		
 		$scope.addNewUser = function(user){
@@ -113,9 +134,15 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	  console.log("In delete controller");
 	  var userId = $routeParams.userId;
 	  var user = {id: userId};
+			
+	  
 	  usersService.removeUser(user).then(function(user) {
 		  var original = user;
 		  original.remove().then(function() {
+		  var deleteUser = confirm('Are you absolutely sure you want to delete?');   
+			if (deleteUser) {
+				  alert('Going to delete the user');
+				}
 			  $location.path('/users');
 		  })
       });
@@ -286,3 +313,17 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
     }
 	$scope.logout();
 });
+
+
+/*
+.controller("AccordionDemoCtrl", ['$scope','$location', '$routeParams','usersService','newUsers', function($scope, $location, $routeParams, usersService, newUsers
+){
+		//Executes when the controller is created
+		var userId = $routeParams.userId;
+		var user = {id: userId};
+		usersService.fetchUser(user).then(function(user) {
+			var original = user;
+			$scope.user = original;
+		});
+	}])
+	*/
