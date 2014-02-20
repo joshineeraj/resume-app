@@ -3,7 +3,7 @@
 	<div class="col-lg-2">
     </div>
     <div class="col-lg-8">
-    	<form role="form" name='myForm' class="register" onsubmit="addNewUser(user)">
+    	<form role="form" name='myForm' class="register">
             <h2>Registration Form</h2>
           <div class="form-group">
             <label>Your Name</label>
@@ -23,7 +23,7 @@
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" name="email" ng-model="user.email" ng-blur='emailmatch(user)' placeholder="Enter email" pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/"required />
+            <input type="email" class="form-control" id="exampleInputEmail1" name="email" ng-model="user.email" ng-blur='emailmatch(user)' placeholder="Enter email" pattern="([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})"required />
             <div class="has-error form-control-feedback" ng-show="myForm.email.$dirty && myForm.email.$invalid">
               <small class="has-error form-control-feedback" ng-show="myForm.email.$error.required">
                      Your email is required.
@@ -45,7 +45,7 @@
             <label for="exampleInputPassword2">Confirm Password</label>
             <input type="password" class="form-control" id="exampleInputPassword2" ng-model="user.password2" ng-change='passwordmatch()' placeholder="Password"><alerts></alerts>
           </div>
-          <button type="submit" class="btn btn-default" id='register' disabled ng-disabled='myForm.$invalid'>Submit</button>
+          <button type="submit" class="btn btn-default" id='register' ng-model="register" ng-disabled='myForm.$invalid' ng-click="addNewUser(user)">Submit</button>
           <button ng-model="clear" type="reset" class="btn btn-default">Clear</button>
           <button ng-model="cancel" ng-click="cancel()" type="button" class="btn btn-default">Cancel</button>
         </form>
