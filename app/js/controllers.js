@@ -188,7 +188,11 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 
 	$scope.logIn = function(user){
 		usersService.chkLogin(user).then(function(user) {
-			if ( (($scope.user.email) == (user[0].email)) && (($scope.user.password) == (user[0].password)) ){
+			console.log(user);
+			if (user.error){
+				alert("Email unregistered");
+			}
+			else if ( (($scope.user.email) == (user.email)) && (($scope.user.password) == (user.password)) ){
 				$rootScope.is_logged = true;
 				window.sessionStorage.setItem("is_logged", true);
 				cfpLoadingBar.start();

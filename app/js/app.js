@@ -37,10 +37,9 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
     $rootScope.$on("$locationChangeStart", function(event, next, current) {
         for(var i in routes_path) {
             if(next.indexOf(i) != -1) {
-            	alert("first step inside");
-                if(routes_path[i].requireLogin && !$rootScope.is_logged) {
-                	console.log("inside run function");
-                    alert("You need to be authenticated to see this page!");
+            	$rootScope.is_logged = window.sessionStorage.getItem('is_logged');
+                if(routes_path[i].requireLogin && $rootScope.is_logged == 'false') {
+                	console.log("Need to be logged in");
                     event.preventDefault();
                 }
             }
