@@ -322,10 +322,10 @@ and (min-width :481px) and (max-width :992px) {
 }
 
 .navbar-fixed-top, .navbar-fixed-bottom {
-	z-index:999;
+	z-index:999 !important;
 }
 .popover-content {
-	z-index:9999;
+	z-index:9999 !important;
 }
 
 .table th a {
