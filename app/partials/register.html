@@ -2,23 +2,36 @@
 <div class="row">
 	<div class="col-lg-2">
     </div>
-
     <div class="col-lg-8">
-    <!-- <div ng-repeat="(key,val) in alerts" class="alert {{key}}">
-      <div ng-repeat="msg in val">{{msg}}</div>
-    </div> -->
-    <alerts></alerts>
-
-
-    	<form role="form" name='myForm ' class="register">
+    	<form role="form" name='myForm' class="register" onsubmit="addNewUser(user)">
             <h2>Registration Form</h2>
           <div class="form-group">
             <label>Your Name</label>
-            <input type="text" class="form-control" class="set-error-succes" ng-model="user.name" placeholder="Your name" required autofocus>
+            <input type="text" class="form-control" ng-model="user.name" name="name" placeholder="Your name" required autofocus ng-minlength=3 ng-maxlength=20 />
+            <div class="has-error form-control-feedback" ng-show="myForm.name.$dirty && myForm.name.$invalid">
+              <small class="has-error form-control-feedback" ng-show="myForm.name.$error.required">
+                  Your name is required.
+              </small>
+              <small class="has-error form-control-feedback" ng-show="myForm.name.$error.minlength">
+                      Your name is required to be at least 3 characters
+              </small>
+              <small class="has-error form-control-feedback" ng-show="myForm.name.$error.maxlength">
+                      Your name cannot be longer than 20 characters
+              </small>
+            </div> 
+
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" ng-model="user.email" ng-blur='emailmatch(user)' placeholder="Enter email" required>
+            <input type="email" class="form-control" id="exampleInputEmail1" name="email" ng-model="user.email" ng-blur='emailmatch(user)' placeholder="Enter email" pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/"required />
+            <div class="has-error form-control-feedback" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+              <small class="has-error form-control-feedback" ng-show="myForm.email.$error.required">
+                     Your email is required.
+              </small>
+              <small class="has-error form-control-feedback" ng-show="myForm.email.$error.email">
+                     That is not a valid email. Please input a valid email.
+              </small>
+            </div>
           </div>
            <div class="form-group"> 
             <label>User Name</label>
@@ -30,9 +43,9 @@
           </div>
           <div class="form-group">
             <label for="exampleInputPassword2">Confirm Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword2" ng-model="user.password2" ng-blur='passwordmatch()' placeholder="Password">
+            <input type="password" class="form-control" id="exampleInputPassword2" ng-model="user.password2" ng-change='passwordmatch()' placeholder="Password"><alerts></alerts>
           </div>
-          <button type="submit" class="btn btn-default" id='register' ng-click="addNewUser(user)" ng-disabled='myForm.$invalid'>Submit</button>
+          <button type="submit" class="btn btn-default" id='register' disabled ng-disabled='myForm.$invalid'>Submit</button>
           <button ng-model="clear" type="reset" class="btn btn-default">Clear</button>
           <button ng-model="cancel" ng-click="cancel()" type="button" class="btn btn-default">Cancel</button>
         </form>
