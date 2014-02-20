@@ -58,8 +58,6 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		
 		
 		$scope.open = function (user) {
-			console.log("current user");
-			console.log(user);
 			var modalInstance = $modal.open({
 				templateUrl: 'partials/viewprofile.html',
 				controller: 'MyDialogCtrl',
@@ -71,9 +69,6 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 			});
 		}
 		
-		$scope.cancel = function () {
-			$location.path('/users');
-		};
 		$scope.getUsers();
 		cfpLoadingBar.complete();
 	})
