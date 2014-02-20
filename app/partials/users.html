@@ -28,7 +28,7 @@
             </thead>
             <tbody>
                 <tr ng-class="{alt: $even, odd: $odd}" ng-repeat="user in users | filter:search | orderBy:orderByField:reverseSort">
-                    <td><a href="#/user/edit/{{user._id}}">{{user.name}}</a></td>
+                    <td><a href="" ng-click="open(user)">{{user.name}}</a></td>
                     <td>{{user.email}}</td>
                     <td>{{user.qualification}}</edit-in-place></td>
                     <td><a href="#/user/edit/{{user._id}}"><span class="glyphicon glyphicon-edit"></span></a></td>
