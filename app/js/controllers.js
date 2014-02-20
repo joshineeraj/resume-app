@@ -9,14 +9,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 			usersService.getUsers().then(
 				function (data) {
 				$rootScope.is_logged = window.sessionStorage.getItem('is_logged');
-					if ($rootScope.is_logged == "true")
-						{
-							$scope.users = data;
-						}
-					else{
-						$location.path('/login');
-					}
-						
+				$scope.users = data;
 				}
 			);
 		}
