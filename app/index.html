@@ -48,9 +48,16 @@
             <li><a href="#/users" ng-show="is_logged">User list</a></li>
     		<li><a href="#/login" ng-hide="is_logged">Login</a></li>
     		<li><a href="#/logout" ng-show="is_logged" data-ng-disabled="!facebookReady" data-ng-click="logout()">Logout</a></li>
-            	<li><a href=""><span class="glyphicon glyphicon-user" id='btn1' data-container="body" data-toggle="popover" data-placement="bottom" data-content="Logged in User: {{logged_in_user.name}} + {{logged_in_user.pic.data.url}}"></span>
-                </a></li>
+            	<li><a href=""><span class="glyphicon glyphicon-user" id='btn1' data-container="body" data-toggle="popover" data-placement="bottom" data-content="Logged in User: {{logged_in_user.name}}"></span>
+                </a>
+              </li>
+              <li>
+                <div class="frontpic">
+                  <img ng-src='{{logged_in_user.pic.data.url}}'>
+                </div>
+              </li><!-- {{logged_in_user.pic.data.url}} -->
           </ul>
+
           <form class="navbar-form navbar-right">
             <input type="text" class="search" placeholder="Search..." ng-model="search" ng-show="is_logged">
           </form>
@@ -92,7 +99,7 @@
    <script src="js/popover.js"></script>
     <script src="js/tooltip.js"></script>
      <script type="text/javascript">
-		
+
         	$('#btn1').popover();
    
     </script>
