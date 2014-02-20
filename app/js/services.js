@@ -77,29 +77,4 @@ angular.module('myApp.services', []).
 		chkLogin:_chkLogin,
 		chkemailid : _chkemailid
     };
-})
-
-.factory("FbService", function(Facebook){
-
-    var _me = function() {
-        var logged_in_person = Facebook.api('/me', function(response) {
-            return response
-            });
-        return logged_in_person;
-        };
-
-    var _my_pic = function() {
-        var logged_in_person_pic = Facebook.api('/me/picture/?type=normal', function(response) {
-            return response
-            });
-        return logged_in_person_pic;
-        };
-
-    return{
-        me: _me,
-        my_pic: _my_pic
-    };
 });
-
-
-

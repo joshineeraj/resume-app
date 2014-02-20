@@ -7,7 +7,6 @@ factory("onAlert", function(){
 		console.log(msg);
 		clearAlerts();
 		addAlert(msg, 'alert-success');
-		
 	}
 	var _errorEvent = function(msg){
 		console.log(msg);

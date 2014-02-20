@@ -2,33 +2,81 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', 'ngAnimate'])
-	.controller("UsersCtrl", function ($scope,$rootScope, $location, usersService, cfpLoadingBar){
+angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', 'ngAnimate', 'ui.bootstrap'])
+	.controller("UsersCtrl", function ($scope,$rootScope, $location, usersService, cfpLoadingBar, FbService, $timeout, $modal){
+
 		//Executes when the controller is created
 		$scope.getUsers = function(){
 			usersService.getUsers().then(
 				function (data) {
-				$rootScope.is_logged = window.sessionStorage.getItem('is_logged');
-				$rootScope.logged_in_user = JSON.parse(window.sessionStorage.getItem("logged_in_user"));
-				if ($rootScope.logged_in_user){
-					$rootScope.logged_in_user.pic = JSON.parse(window.sessionStorage.getItem("logged_in_user_pic"));
-				}
-				
-					if ($rootScope.is_logged == "true")
-						{
-							$scope.users = data;
+					$rootScope.is_logged = window.sessionStorage.getItem('is_logged');
+					$rootScope.fb_user = window.sessionStorage.getItem('fb_user');
+					console.log("fb user");
+					console.log($rootScope.fb_user);
+					if ($rootScope.is_logged == "true"){
+						if ($rootScope.fb_user == "true"){
+							$scope.intentLogin();
 						}
-					else{
+						$scope.users = data;
+					}else{
 						$location.path('/login');
 					}
-						
+							
 				}
 			);
 		}
+	    $scope.intentLogin =  function(){
+	    	FbService.intentLogin().then(function(response){
+		    	console.log(response);
+		        if (response.status == 'connected') {
+		        	$scope.me();
+		        }else{
+		        	console.log("Would need fblogin");
+		        }
+	    	});
+	    }
+		$scope.me = function() {
+	    	  FbService.me().then(function(response){
+	    		  console.log(response);
+	    		  $timeout(function() {
+	                $rootScope.logged_in_user = response;
+	                $scope.my_pic();
+	              });
+	    	  });
+		};
+		$scope.my_pic = function() {
+			FbService.my_pic().then(function(response){
+				/**
+				 * Using $scope.$apply since this happens outside angular framework.
+				 */
+				$timeout(function() {
+					$rootScope.logged_in_user.pic = response;
+				});
+			});
+			$location.path('/users');
+		};
+		
+		
+		$scope.open = function (user) {
+			var modalInstance = $modal.open({
+				templateUrl: 'partials/viewprofile.html',
+				controller: 'MyDialogCtrl',
+				resolve: {
+				  user: function () {
+					return user;
+				  }
+				}
+			});
+		}
+		
 		$scope.getUsers();
 		cfpLoadingBar.complete();
 	})
-.controller("UsersRegisterCtrl", function ($scope,$rootScope, $location, $timeout, usersService, cfpLoadingBar, onAlert){
+	.controller('MyDialogCtrl', function ($scope, user) {
+	  // Here, username is 'foo'
+	  $scope.user = user;
+	})
+	.controller("UsersRegisterCtrl", function ($scope,$rootScope, $location, $timeout, usersService, cfpLoadingBar, onAlert){
 		
 		$scope.addNewUser = function(user){
 			usersService.addNewUser(user).then(function(user) {
@@ -113,11 +161,21 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	  console.log("In delete controller");
 	  var userId = $routeParams.userId;
 	  var user = {id: userId};
+			
+	  
 	  usersService.removeUser(user).then(function(user) {
 		  var original = user;
-		  original.remove().then(function() {
-			  $location.path('/users');
-		  })
+		  
+		  var deleteUser = confirm('Are you absolutely sure you want to delete?'); 
+			console.log(deleteUser);
+			if (deleteUser) {
+				  alert('Going to delete the user');
+				  original.remove().then(function() {
+						$location.path('/users');
+					})
+			}
+			$location.path('/users');
+		  
       });
 }])
 .controller('uploadResume', function ($scope, usersService) {
@@ -145,18 +203,25 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 .controller('LoginCtrl', function($scope, $rootScope, $location, usersService, cfpLoadingBar, $timeout, Facebook, FbService, newUsers, onAlert){
     // And some fancy flags to display messages upon user status change
 	if (window.sessionStorage.getItem("is_logged")=="true"){
-				$location.path('/users');
+		$location.path('/users');
 	}
 	// Here, usually you should watch for when Facebook is ready and loaded
 	  $scope.$watch(function() {
 	    return Facebook.isReady(); // This is for convenience, to notify if Facebook is loaded and ready to go.
 	  }, function(newVal) {
 	    $scope.facebookReady = true; // You might want to use this to disable/show/hide buttons and else
+	    if (window.sessionStorage.getItem("fb_user")=="true"){
+			$scope.intentLogin();
+		}
 	  });
 
 	$scope.logIn = function(user){
 		usersService.chkLogin(user).then(function(user) {
-			if ( (($scope.user.email) == (user[0].email)) && (($scope.user.password) == (user[0].password)) ){
+			console.log(user);
+			if (user.error){
+				alert("Email unregistered");
+			}
+			else if ( (($scope.user.email) == (user.email)) && (($scope.user.password) == (user.password)) ){
 				$rootScope.is_logged = true;
 				window.sessionStorage.setItem("is_logged", true);
 				cfpLoadingBar.start();
@@ -172,20 +237,24 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
     /**
      * IntentLogin
      **/
-    $scope.intentLogin = function() {
-      Facebook.getLoginStatus(function(response) {
-        if (response.status == 'connected') {
-        	$scope.is_logged_in();
-        }
-        else
-          $scope.fblogin();
-      });
-    };
+    $scope.intentLogin =  function(){
+    	FbService.intentLogin().then(function(response){
+	    	console.log(response);
+	        if (response.status == 'connected') {
+	        	$scope.is_logged_in();
+	        }
+	        else
+	          $scope.fblogin();
+    	});
+    }
+
     
     $scope.is_logged_in = function() {
    	 	$scope.logged = true;
         $rootScope.is_logged = true;
+        $rootScope.fb_user = true;
         window.sessionStorage.setItem("is_logged", true);
+        window.sessionStorage.setItem("fb_user", true);
         $scope.me();
     }
     
@@ -193,11 +262,10 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
      * Login
      */
      $scope.fblogin = function() {
-       Facebook.login(function(response) {
+    	FbService.fblogin().then(function(response) {
         if (response.status == 'connected') {
         	$scope.is_logged_in();
         }
-      
       }, { scope: 'email' });
      };
      
@@ -209,7 +277,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
     		  console.log(response);
     		  $timeout(function() {
                 $rootScope.logged_in_user = response;
-                window.sessionStorage.setItem("logged_in_user", JSON.stringify($rootScope.logged_in_user));
+//                window.sessionStorage.setItem("logged_in_user", JSON.stringify($rootScope.logged_in_user));
                 $scope.my_pic();
                 $scope.checkEmail();
               });
@@ -226,7 +294,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
     			  console.log("Existing user");
     		  }
     	  });
-		};
+      };
 	  $scope.addUser = function(user){
 			usersService.addNewUser(user).then(function(user) {
 				console.log("Added FB user to DB");
@@ -240,7 +308,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
                */
     		  $timeout(function() {
     			  $rootScope.logged_in_user.pic = response;
-    			  window.sessionStorage.setItem("logged_in_user_pic", JSON.stringify($rootScope.logged_in_user.pic));
+//    			  window.sessionStorage.setItem("logged_in_user_pic", JSON.stringify($rootScope.logged_in_user.pic));
               });
     	  });
           $location.path('/users');
@@ -271,18 +339,21 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
     });
 })
 
-.controller('LogoutCtrl', function($scope, $rootScope,$location, $timeout, Facebook){
+.controller('LogoutCtrl', function($scope, $rootScope,$location, $timeout, FbService){
 	$scope.logout = function() {
 	  $rootScope.is_logged = false;
 	  window.sessionStorage.setItem("is_logged", false);
-      Facebook.logout(function() {
-    	  $timeout(function() {
-        	$scope.logged = false;
-          $rootScope.logged_in_user = {};
-          window.sessionStorage.setItem("logged_in_user", JSON.stringify($rootScope.logged_in_user));
-          
-        });
+	  FbService.logout().then(function(response) {
+			  console.log("logout response");
+			  console.log(response);
+	    	  $timeout(function() {
+		          $scope.logged = false;
+		    	  window.sessionStorage.setItem("fb_user", false);
+		    	  $rootScope.fb_user = false;
+		          $rootScope.logged_in_user = {};
+	          
+	    	  });
       });
-    }
+	};
 	$scope.logout();
 });
