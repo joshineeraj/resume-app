@@ -38,17 +38,14 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
         for(var i in routes_path) {
             if(next.indexOf(i) != -1) {
             	$rootScope.is_logged = window.sessionStorage.getItem('is_logged');
-            	alert('inside run function');
                 if(routes_path[i].requireLogin && $rootScope.is_logged == 'false') {
                 	console.log("Need to be logged in");
                     event.preventDefault();
-                   // }
-                // }
             }
         }
     }}
-)
-}])
+)}
+])
 //app_secret = '830cd07bf525cecf18b0572fc4af973c'
 
 .config(['FacebookProvider', function(FacebookProvider) {
