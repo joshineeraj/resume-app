@@ -32,21 +32,17 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
   
   
 }])
-.run(['$rootScope',function($rootScope){
-
+.run(['$rootScope','$location',function($rootScope,$location){
     $rootScope.$on("$locationChangeStart", function(event, next, current) {
+    	$rootScope.is_logged = window.sessionStorage.getItem('is_logged');
         for(var i in routes_path) {
-            if(next.indexOf(i) != -1) {
-            	$rootScope.is_logged = window.sessionStorage.getItem('is_logged');
                 if(routes_path[i].requireLogin && $rootScope.is_logged == 'false') {
                 	console.log("Need to be logged in");
-                    event.preventDefault();
-                }
-            }
+                	$location.path('/login');
         }
-    });
-
-}])
+    }}
+)}
+])
 //app_secret = '830cd07bf525cecf18b0572fc4af973c'
 
 .config(['FacebookProvider', function(FacebookProvider) {
