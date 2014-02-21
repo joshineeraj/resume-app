@@ -10,9 +10,10 @@
                 <lable>Email Address</lable>
                 <input type="email" class="form-control" placeholder="me@example.com" required autofocus name="email" ng-model="user.email">
             </div>
-			<div ng-show="loginForm.email.$dirty && loginForm.email.$invalid">
-				<span ng-show="loginForm.email.$error.required">Error : Tell us your email.</span>
-				<span ng-show="loginForm.email.$error.email"> Invalid : This is not a valid email.</span>
+			
+			<div class="has-error form-control-feedback" ng-show="loginForm.email.$dirty && loginForm.email.$invalid">
+				<small class="has-error form-control-feedback" ng-show="loginForm.email.$error.required">Error : Tell us your email.</small>
+				<small class="has-error form-control-feedback" ng-show="loginForm.email.$error.email"> Invalid : This is not a valid email.</small>
 			  </div>
 
             <div class="form-group">
