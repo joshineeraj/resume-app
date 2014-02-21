@@ -59,7 +59,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		
 		$scope.open = function (user) {
 			var modalInstance = $modal.open({
-				templateUrl: 'partials/viewprofile.html',
+				templateUrl: 'partials/quick-preview.html',
 				controller: 'MyDialogCtrl',
 				resolve: {
 				  user: function () {
