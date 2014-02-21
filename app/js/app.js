@@ -45,9 +45,9 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
         			}	
         		}
     }}
-)}
+    )
+}])
 
-])
 //app_secret = '830cd07bf525cecf18b0572fc4af973c'
 
 .config(['FacebookProvider', function(FacebookProvider) {
