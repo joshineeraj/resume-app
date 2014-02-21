@@ -90,11 +90,11 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 			var check = $scope.user.password == $scope.user.password2;
 			if(check){
 				console.log("Password matches");
-				$("#register").disabled = false;
+				document.getElementById("register").disabled = false;
 				onAlert.successEvent("password matches");
 			}else{
 				console.log("password not matches");
-				$("#register").disabled = true;
+				document.getElementById("register").disabled = true;
 				onAlert.errorEvent("password not matches");
 			}
 		}
