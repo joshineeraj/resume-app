@@ -7,17 +7,17 @@
        
             <h2 class="form-signin-heading">Login Panel</h2>
             <div class="form-group">
-                <lable>User Email Address</lable>
+                <lable>Email Address</lable>
                 <input type="email" class="form-control" placeholder="me@example.com" required autofocus name="email" ng-model="user.email">
             </div>
-			<br /><div ng-show="loginForm.email.$dirty && loginForm.email.$invalid">
+			<div ng-show="loginForm.email.$dirty && loginForm.email.$invalid">
 				<span ng-show="loginForm.email.$error.required">Error : Tell us your email.</span>
 				<span ng-show="loginForm.email.$error.email"> Invalid : This is not a valid email.</span>
 			  </div>
 
             <div class="form-group">
                 <lable>Password</lable>
-                <input type="password" class="form-control" placeholder="Password" required name="pass" ng-model="user.password">
+                <input type="password" class="form-control" placeholder="Password" required name="password" ng-model="user.password">
             </div>
             <div class="form-group">
               <label class="checkbox">
@@ -28,7 +28,7 @@
             </div>
              <div class="form-group"></div>
             <div class="form-group">
-                <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="logIn(user)">Sign in</button>
+                <button class="btn btn-lg btn-primary btn-block" ng-disabled='loginForm.email.$invalid' type="submit" ng-click="logIn(user)">Sign in</button>
 
 		   </div>
              <div class="form-group">
