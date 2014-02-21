@@ -7,9 +7,14 @@
        
             <h2 class="form-signin-heading">Login Panel</h2>
             <div class="form-group">
-                <lable>User Name</lable>
-                <input type="email" class="form-control" placeholder="Email address" required autofocus name="email" ng-model="user.email">
+                <lable>User Email Address</lable>
+                <input type="email" class="form-control" placeholder="me@example.com" required autofocus name="email" ng-model="user.email">
             </div>
+			<br /><div ng-show="loginForm.email.$dirty && loginForm.email.$invalid">
+				<span ng-show="loginForm.email.$error.required">Error : Tell us your email.</span>
+				<span ng-show="loginForm.email.$error.email"> Invalid : This is not a valid email.</span>
+			  </div>
+
             <div class="form-group">
                 <lable>Password</lable>
                 <input type="password" class="form-control" placeholder="Password" required name="pass" ng-model="user.password">
