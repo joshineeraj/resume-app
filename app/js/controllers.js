@@ -169,12 +169,11 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		  var deleteUser = confirm('Are you absolutely sure you want to delete?'); 
 			console.log(deleteUser);
 			if (deleteUser) {
-				  alert('Going to delete the user');
 				  original.remove().then(function() {
 						$location.path('/users');
 					})
 			}
-			$location.path('/users');
+			// $location.path('/users');
 		  
       });
 }])
