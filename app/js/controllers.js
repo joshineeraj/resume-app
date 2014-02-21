@@ -76,6 +76,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	  // Here, username is 'foo'
 	  $scope.user = user;
 	})
+
 	.controller("UsersRegisterCtrl", function ($scope,$rootScope, $location, $timeout, usersService, cfpLoadingBar, onAlert){
 		
 		$scope.addNewUser = function(user){
@@ -90,11 +91,11 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 			var check = $scope.user.password == $scope.user.password2;
 			if(check){
 				console.log("Password matches");
-				$("#register").disabled = false;
+				document.getElementById("register").disabled = false;
 				onAlert.successEvent("password matches");
 			}else{
 				console.log("password not matches");
-				$("#register").disabled = true;
+				document.getElementById("register").disabled = true;
 				onAlert.errorEvent("password not matches");
 			}
 		}
@@ -169,12 +170,11 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		  var deleteUser = confirm('Are you absolutely sure you want to delete?'); 
 			console.log(deleteUser);
 			if (deleteUser) {
-				  alert('Going to delete the user');
 				  original.remove().then(function() {
 						$location.path('/users');
 					})
 			}
-			$location.path('/users');
+			// $location.path('/users');
 		  
       });
 }])
@@ -351,7 +351,8 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		          $scope.logged = false;
 		    	  window.sessionStorage.setItem("fb_user", false);
 		    	  $rootScope.fb_user = false;
-		          $rootScope.logged_in_user = {};
+		  	      $rootScope.logged_in_user = {};
+		    	  //return $rootScope.logout();
 	          
 	    	  });
       });
