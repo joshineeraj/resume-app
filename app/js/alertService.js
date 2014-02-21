@@ -21,8 +21,10 @@ factory("onAlert", function(){
         }
 
      var clearAlerts = function() {
-            for(var x in alerts) {
-           		delete alerts[x];
+            if("alert-warning" in alerts){
+        		delete alerts["alert-warning"];
+        	}else if("alert-success" in alerts){
+        		delete alerts["alert-success"];
         	}
         }
        	return{

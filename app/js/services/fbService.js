@@ -7,9 +7,7 @@
 // In this case it is a FB service.
 angular.module('myApp.fbService', []).
   value('version', '0.1')
-.factory("FbService", function(Facebook){
-	var fb_user = {}
-	
+.service("FbService", function(Facebook){
 	var _intentLogin = function() {
 		var login_status = Facebook.getLoginStatus(function(response) {
 			return response

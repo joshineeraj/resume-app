@@ -2,8 +2,9 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', 'ngAnimate'])
-	.controller("UsersCtrl", function ($scope,$rootScope, $location, usersService, cfpLoadingBar, FbService, $timeout){
+angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', 'ngAnimate', 'ui.bootstrap'])
+	.controller("UsersCtrl", function ($scope,$rootScope, $location, usersService, cfpLoadingBar, FbService, $timeout, $modal){
+
 		//Executes when the controller is created
 		$scope.getUsers = function(){
 			usersService.getUsers().then(
@@ -54,8 +55,26 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 			});
 			$location.path('/users');
 		};
+		
+		
+		$scope.open = function (user) {
+			var modalInstance = $modal.open({
+				templateUrl: 'partials/viewprofile.html',
+				controller: 'MyDialogCtrl',
+				resolve: {
+				  user: function () {
+					return user;
+				  }
+				}
+			});
+		}
+		
 		$scope.getUsers();
 		cfpLoadingBar.complete();
+	})
+	.controller('MyDialogCtrl', function ($scope, user) {
+	  // Here, username is 'foo'
+	  $scope.user = user;
 	})
 	.controller("UsersRegisterCtrl", function ($scope,$rootScope, $location, $timeout, usersService, cfpLoadingBar, onAlert){
 		
@@ -71,11 +90,11 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 			var check = $scope.user.password == $scope.user.password2;
 			if(check){
 				console.log("Password matches");
-				document.getElementById("register").disabled = false;
+				$("#register").disabled = false;
 				onAlert.successEvent("password matches");
 			}else{
 				console.log("password not matches");
-				document.getElementById("register").disabled = true;
+				$("#register").disabled = true;
 				onAlert.errorEvent("password not matches");
 			}
 		}
@@ -142,11 +161,21 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	  console.log("In delete controller");
 	  var userId = $routeParams.userId;
 	  var user = {id: userId};
+			
+	  
 	  usersService.removeUser(user).then(function(user) {
 		  var original = user;
-		  original.remove().then(function() {
-			  $location.path('/users');
-		  })
+		  
+		  var deleteUser = confirm('Are you absolutely sure you want to delete?'); 
+			console.log(deleteUser);
+			if (deleteUser) {
+				  alert('Going to delete the user');
+				  original.remove().then(function() {
+						$location.path('/users');
+					})
+			}
+			$location.path('/users');
+		  
       });
 }])
 .controller('uploadResume', function ($scope, usersService) {

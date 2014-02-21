@@ -1,10 +1,5 @@
 <div class="row">
-   <!--- <input type="text" ng-model="user.name" placeholder="Name of the user">
-    <input type="text" ng-model="user.email" placeholder="Email">
-    <input type="text" ng-model="user.qualification" placeholder="Qualification">
-    <button ng-hide = "user._id" ng-click="addNewUser(user)">Add User</button>
-    <button ng-show = "user._id" ng-click="updateUser(ser)">Update User</button>
-    <br>--->
+
     <div class="col-lg-1">
     	&nbsp;
     </div>
@@ -27,13 +22,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-class="{alt: $even, odd: $odd}" ng:repeat="user in users | filter:search | orderBy:orderByField:reverseSort">
-                    <td>{{user.name}}</td>
+                <tr ng-class="{alt: $even, odd: $odd}" ng-repeat="user in users | filter:search | orderBy:orderByField:reverseSort">
+                    <td><a href="" ng-click="open(user)">{{user.name}}</a></td>
                     <td>{{user.email}}</td>
                     <td>{{user.qualification}}</edit-in-place></td>
                     <td><a href="#/user/edit/{{user._id}}"><span class="glyphicon glyphicon-edit"></span></a></td>
                     <td><a href="#/user/view/{{user._id}}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
-                    <td><a href="#/user/delete/{{user._id}}"><span class="glyphicon glyphicon-remove"></span></a></td>
+                    <td><a href="#/user/delete/{{user._id}}" ><span class="glyphicon glyphicon-remove"></span></a></td>
                 </tr>
             </tbody>
         </table>

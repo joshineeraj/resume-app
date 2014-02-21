@@ -741,6 +741,7 @@ pre code {
   .container {
     width: 750px;
   }
+ 
 }
 @media (min-width: 992px) {
   .container {
@@ -5828,8 +5829,34 @@ td.visible-print {
     display: none !important;
   }
 }
-/*# sourceMappingURL=bootstrap.css.map */
-.blog-post {
-	margin-bottom:40px;
-	margin-top:20px;
+.register .alert-warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  padding: 5px;
+  margin-bottom: 0;
+  border: 0;
+  border-radius: 0;
+  text-align: right;
 }
+
+.register .alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  padding: 5px;
+  margin-bottom: 0;
+  border: 0;
+  border-radius: 0;
+  text-align: right;
+
+}
+
+.frontpic img{
+  border-color: #d6e9c6;
+  border: 5px;
+  border-radius: 20px;
+  width:60px;
+  padding-top: 4px
+}
+/*# sourceMappingURL=bootstrap.css.map */
