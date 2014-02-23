@@ -59,7 +59,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		
 		$scope.open = function (user) {
 			var modalInstance = $modal.open({
-				templateUrl: 'partials/viewprofile.html',
+				templateUrl: 'partials/quick-preview.html',
 				controller: 'MyDialogCtrl',
 				resolve: {
 				  user: function () {
@@ -76,6 +76,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	  // Here, username is 'foo'
 	  $scope.user = user;
 	})
+
 	.controller("UsersRegisterCtrl", function ($scope,$rootScope, $location, $timeout, usersService, cfpLoadingBar, onAlert){
 		
 		$scope.addNewUser = function(user){
@@ -347,7 +348,8 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		          $scope.logged = false;
 		    	  window.sessionStorage.setItem("fb_user", false);
 		    	  $rootScope.fb_user = false;
-		          $rootScope.logged_in_user = {};
+		  	      $rootScope.logged_in_user = {};
+		    	  //return $rootScope.logout();
 	          
 	    	  });
       });
