@@ -44,10 +44,13 @@
             </div>
             <div class="form-group">
               <label>Mobile Number</label>
-              <input type="text" class="form-control" name='phone' ng-model="user.mobile" placeholder="Mobile Number" />
+              <input type="text" class="form-control" name='phone' ng-model="user.mobile" placeholder="Mobile Number"  ng-maxlength=10 ng-minlength=10 />
                 <div class="has-error form-control-feedback" ng-show="registerForm.phone.$dirty && registerForm.phone.$invalid">
-                  <small class="has-error form-control-feedback" ng-show="registerForm.email.$error.pattern">
-                          Not valid phone Number.
+                  <small class="has-error form-control-feedback" ng-show="registerForm.phone.$error.maxlength || !registerForm.phone.$error.minlenth">
+                          Enter 10 Digit Number.
+                  </small>
+                  <small class="has-error form-control-feedback" ng-show="!registerForm.phone.$error.type">
+                          Enter only Number.
                   </small>
                 </div>
             </div>
@@ -61,13 +64,13 @@
             </div>
             <div class="form-group">
               <label>Passing Year</label>
-              <input type="number" name='year' class="form-control" ng-model="user.year_passing" placeholder="Passing year" ng-maxlength=4 ng-minlength=4 />
+              <input type="number" name='year' class="form-control" ng-model="user.year_passing" placeholder="Passing year" ng-maxlength=4 ng-minlength=4/>
               <div class="has-error form-control-feedback" ng-show="registerForm.year.$dirty && registerForm.year.$invalid" >
-                <small class="has-error form-control-feedback" ng-show="registerForm.year.$error.maxlength">
+                <small class="has-error form-control-feedback" ng-show="registerForm.year.$error.maxlength || !registerForm.year.$error.minlenth">
                         Please Enter only 4 digits year.
                 </small>
-                <small class="has-error form-control-feedback" ng-show="registerForm.year.$error.minlenth">
-                        Please Enter only 4 digits year.
+                <small class="has-error form-control-feedback" ng-show="registerForm.year.$error.type">
+                        Please Enter Numbers.
                 </small>
               </div>
             </div>
@@ -81,7 +84,8 @@
                 <label>Current Employer</label>
             <input type="text" class="form-control" ng-model="user.current_employer" placeholder="Text input">
             </div>
-            <button type="submit" class="btn btn-default" ng-show = "user._id" ng-click="updateUser(user)" ng-disabled='registerForm.$error || registerForm.$invalid'>Update User</button>
+            <button type="submit" class="btn btn-default" ng-show = "user._id" ng-click="updateUser(user)" ng-disabled='registerForm.$invalid'>Update User</button>
+            
         </form>
 	</div>
     <div class="col-lg-3">
