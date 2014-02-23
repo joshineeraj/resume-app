@@ -109,9 +109,6 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 				if(!user.success){
 					document.getElementById("register").disabled = true;
 					onAlert.errorEvent("Email already exist! Please try with another email");
-				}else{
-					// alert("email-id is available");
-					document.getElementById("register").disabled = false;
 				}
 			});
 		}
