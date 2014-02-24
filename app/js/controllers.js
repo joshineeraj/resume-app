@@ -227,7 +227,6 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 				alert("Email or Password is incorrect.");
 				$location.path('/login');
 			}
-			
 		});
 	}
 	
