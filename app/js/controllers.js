@@ -190,7 +190,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		});
 	}])
 	  
-  .controller("UserDeleteCtrl", ['$scope','$location', '$routeParams','usersService', function($scope, $location, $routeParams, usersService
+  .controller("UserDeleteCtrl", ['$scope','$location', '$routeParams','usersService', function($scope, $location, $routeParams, usersService, $dialog
 ){
 	  //Executes when the controller is created
 	  console.log("In delete controller");
@@ -200,16 +200,26 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	  
 	  usersService.removeUser(user).then(function(user) {
 		  var original = user;
-		  
-		  var deleteUser = confirm('Are you absolutely sure you want to delete?'); 
-			console.log(deleteUser);
-			if (deleteUser) {
-				  original.remove().then(function() {
+		  var msgbox = $dialog.messageBox('Delete Item', 'Are you sure?', [{label:'Yes, I\'m sure', result: 'yes'},{label:'Nope', result: 'no'}]);
+		   msgbox.open().then(function(result){
+            if(result === 'yes') {
+              original.remove().then(function() {
 						$location.path('/users');
 					})
-			}else{
-				$location.path('/users');
-			}
+              console.log("deleting item " + item.name);
+            }
+			$location.path('/users');
+        });
+		  
+		  // var deleteUser = confirm('Are you absolutely sure you want to delete?'); 
+			// console.log(deleteUser);
+			// if (deleteUser) {
+				  // original.remove().then(function() {
+						// $location.path('/users');
+					// })
+			// }else{
+				// $location.path('/users');
+			// }
 		  
       });
 }])
