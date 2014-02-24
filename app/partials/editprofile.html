@@ -5,52 +5,74 @@
     <div class="col-lg-6">
     	<form role="form" name="registerForm" class="edit-profile">
         <h2>Edit User Profile</h2>
-        	 <div class="form-group">
-                <label>Your Name</label>
-                <input type="text" class="form-control" name='name' placeholder="Text input" required ng-model="user.name" autofocus ng-minlength=3 ng-maxlength=20 >
-                <div class="has-error form-control-feedback" ng-show="registerForm.name.$dirty && registerForm.name.$invalid">
-                  <small class="has-error form-control-feedback" ng-show="registerForm.name.$error.required">
-                      Your name is required.
-                  </small>
-                  <small class="has-error form-control-feedback" ng-show="registerForm.name.$error.minlength">
-                          Your name is required to be at least 3 characters
-                  </small>
-                  <small class="has-error form-control-feedback" ng-show="registerForm.name.$error.maxlength">
-                          Your name cannot be longer than 20 characters
-                  </small>
-                </div> 
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" class="form-control" ng-model="user.name" name="name" placeholder="Your name" ng-required autofocus ng-minlength=3 ng-maxlength=20 ng-pattern="/^[a-zA-Z ]*$/" />
+            <div class="has-error form-control-feedback" ng-show="registerForm.name.$dirty && registerForm.name.$invalid">
+              <small class="has-error form-control-feedback" ng-show="registerForm.name.$error.required">
+                  Your name is required.
+              </small>
+              <small class="has-error form-control-feedback" ng-show="registerForm.name.$error.minlength">
+                      Your name is required to be at least 3 characters
+              </small>
+              <small class="has-error form-control-feedback" ng-show="registerForm.name.$error.maxlength">
+                      Your name cannot be longer than 20 characters
+              </small>
+              <small class="has-error form-control-feedback" ng-show="registerForm.name.$error.pattern">
+                      Please enter only text
+              </small>
+            </div> 
+          </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" name="email" ng-model="user.email" placeholder="Enter email" ng-pattern="/([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/m" ng-required />
+              <div class="has-error form-control-feedback" ng-show="registerForm.email.$dirty && registerForm.email.$invalid">
+                <small class="has-error form-control-feedback" ng-show="registerForm.email.$error.required">
+                       Your email is required.
+                </small>
+                <small class="has-error form-control-feedback" ng-show="registerForm.email.$error.email">
+                       That is not a valid email. Please input a valid email.
+                </small>
+                <small class="has-error form-control-feedback" ng-show="registerForm.email.$error.pattern">
+                        Not valid Email address
+                </small>
+              </div>
             </div>
             <div class="form-group">
-                <label>Email Address</label>
-            	<input type="email" name='email' class="form-control" id="exampleInputEmail1" ng-model="user.email" placeholder="Enter email" ng-blur='emailmatch(user)' pattern="([\w-\.]+)@((?:[\w]+\.)+)\.([a-zA-Z]{2,4})" required />
-                <div class="has-error form-control-feedback" ng-show="registerForm.email.$dirty && registerForm.email.$invalid">
-                  <small class="has-error form-control-feedback" ng-show="registerForm.email.$error.required">
-                         Your email is required.
+                <label>Qualification</label>
+            <input type="text" class="form-control" ng-model="user.qualification" placeholder="Text input" />
+            </div>
+            <div class="form-group">
+              <label>Mobile Number</label>
+              <input type="text" class="form-control" name='phone' ng-model="user.mobile" placeholder="Mobile Number"  ng-maxlength=10 ng-minlength=10 />
+                <div class="has-error form-control-feedback" ng-show="registerForm.phone.$dirty && registerForm.phone.$invalid">
+                  <small class="has-error form-control-feedback" ng-show="registerForm.phone.$error.maxlength || !registerForm.phone.$error.minlenth">
+                          Enter 10 Digit Number.
                   </small>
-                  <small class="has-error form-control-feedback" ng-show="registerForm.email.$error.email">
-                         That is not a valid email. Please input a valid email.
+                  <small class="has-error form-control-feedback" ng-show="!registerForm.phone.$error.type">
+                          Enter only Number.
                   </small>
                 </div>
             </div>
             <div class="form-group">
-                <label>Qualification</label>
-            <input type="text" class="form-control" ng-model="user.qualification" placeholder="Text input">
+              <label>Skills</label>
+              <input type="text" class="form-control" ng-model="user.skills" placeholder="Text input" />
             </div>
             <div class="form-group">
-                <label>Mobile Number</label>
-            <input type="text" class="form-control" ng-model="user.mobile" pattern="/(7|8|9)\d{9}/" placeholder="Text input">
+              <label>Location</label>
+              <input type="text" class="form-control" ng-model="user.location" placeholder="Text input" />
             </div>
             <div class="form-group">
-                <label>Skills</label>
-            <input type="text" class="form-control" ng-model="user.skills" placeholder="Text input">
-            </div>
-            <div class="form-group">
-                <label>Location</label>
-            <input type="text" class="form-control" ng-model="user.location" placeholder="Text input">
-            </div>
-            <div class="form-group">
-                <label>Passing Year</label>
-            <input type="text" class="form-control" ng-model="user.year_passing" placeholder="Text input">
+              <label>Passing Year</label>
+              <input type="number" name='year' class="form-control" ng-model="user.year_passing" placeholder="Passing year" ng-maxlength=4 ng-minlength=4/>
+              <div class="has-error form-control-feedback" ng-show="registerForm.year.$dirty && registerForm.year.$invalid" >
+                <small class="has-error form-control-feedback" ng-show="registerForm.year.$error.maxlength || !registerForm.year.$error.minlenth">
+                        Please Enter only 4 digits year.
+                </small>
+                <small class="has-error form-control-feedback" ng-show="registerForm.year.$error.type">
+                        Please Enter Numbers.
+                </small>
+              </div>
             </div>
             <div class="form-group">
                 <label>Gender</label>
@@ -63,6 +85,7 @@
             <input type="text" class="form-control" ng-model="user.current_employer" placeholder="Text input">
             </div>
             <button type="submit" class="btn btn-default" ng-show = "user._id" ng-click="updateUser(user)" ng-disabled='registerForm.$invalid'>Update User</button>
+            
         </form>
 	</div>
     <div class="col-lg-3">

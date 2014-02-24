@@ -8,20 +8,6 @@
 angular.module('myApp.services', []).
   value('version', '0.1')
   .factory("usersService", function($http, Restangular, $q, $timeout){
-
-    // var _getUsers = function(){
-    	// console.log("inside ankit get user");
-        // var deferred = $q.defer();
-        // Restangular.all('users').getList().then(function (err,data) {
-                        // if (!data){
-                        	// deferred.reject(err);
-                        // }
-                        // else{
-                        // deferred.resolve(data);
-                        // console.log("Server working Properly");}
-                // });
-                // return deferred.promise;
-    // }
     var _getUsers = function(){
         var deferred = $q.defer();
         Restangular.all('users').getList().then(function (data, err) {

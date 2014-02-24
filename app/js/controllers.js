@@ -59,7 +59,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		
 		$scope.open = function (user) {
 			var modalInstance = $modal.open({
-				templateUrl: 'partials/viewprofile.html',
+				templateUrl: 'partials/quick-preview.html',
 				controller: 'MyDialogCtrl',
 				resolve: {
 				  user: function () {
@@ -110,9 +110,6 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 				if(!user.success){
 					document.getElementById("register").disabled = true;
 					onAlert.errorEvent("Email already exist! Please try with another email");
-				}else{
-					// alert("email-id is available");
-					document.getElementById("register").disabled = false;
 				}
 			});
 		}
@@ -125,11 +122,9 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	})
 
   
-	.controller("UserEditCtrl", ['$scope','$location', '$routeParams','usersService', 'genders', function($scope, $location, $routeParams, usersService, genders
+	.controller("UserEditCtrl", ['$scope','$location', '$routeParams','usersService', 'genders', 'onAlert', function($scope, $location, $routeParams, usersService, genders, onAlert
 	){
-		//Executes when the controller is created
 		var userId = $routeParams.userId;
-		// $scope.genders = [{value:'Male', text:'Male'}, {value:'Female', text:'Female'}];
 		$scope.genders = genders.gender;
 		console.log("In edit controller");
 		var user = {id: userId};
@@ -143,6 +138,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 				$location.path('/users');
 			});
 		}
+
 	}])
 	  
 	.controller("UserViewCtrl", ['$scope','$location', '$routeParams','usersService','newUsers', function($scope, $location, $routeParams, usersService, newUsers
