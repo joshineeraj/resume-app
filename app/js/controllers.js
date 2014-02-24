@@ -68,7 +68,6 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 				}
 			});
 		}
-		
 		$scope.getUsers();
 		cfpLoadingBar.complete();
 	})
@@ -190,28 +189,62 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		});
 	}])
 	  
-  .controller("UserDeleteCtrl", ['$scope','$location', '$routeParams','usersService', function($scope, $location, $routeParams, usersService
+  .controller("UserDeleteCtrl", ['$scope','$location', '$routeParams','usersService', '$modal', '$timeout', function($scope, $location, $routeParams, usersService, $modal, $timeout
 ){
 	  //Executes when the controller is created
 	  console.log("In delete controller");
 	  var userId = $routeParams.userId;
 	  var user = {id: userId};
-			
+	  $scope.getUsers = function(){
+			usersService.getUsers().then(
+				function (data) {
+					console.log("Fetch updated users list")
+	    		    $timeout(function() {
+	    		    	$scope.users = data;
+	                });
+				}
+			);
+	  }
 	  
 	  usersService.removeUser(user).then(function(user) {
 		  var original = user;
-		  
-		  var deleteUser = confirm('Are you absolutely sure you want to delete?'); 
-			console.log(deleteUser);
-			if (deleteUser) {
-				  original.remove().then(function() {
+			$modal.open({
+			    templateUrl: 'partials/confirmation_tpl.html',
+			    backdrop: 'static',
+			    keyboard: false,
+			    resolve: {
+			        data: function() { 
+			            return {
+			                title: 'Delete '+ user.name,
+			                message: 'Click ok to delete '+user.name+', otherwise click cancel.' 
+			            };
+			        }
+			    },
+			    controller: 'ConfirmationController' 
+				}).result.then(function(result) {
+				    // Do your logic to delete Foo.
+					  original.remove().then(function() {
+						  $scope.getUsers();
+						  $location.path('/users');
+						})
 						$location.path('/users');
-					})
-			}else{
-				$location.path('/users');
-			}
+				});
+			$location.path('/users');
 		  
       });
+}])
+.controller('ConfirmationController', ['$scope', '$modalInstance', 'data', '$location', 
+    function ($scope, $modalInstance, data, $location) {
+
+    $scope.data = data;
+
+    $scope.ok = function() {
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss();
+    };    
 }])
 .controller('uploadResume', function ($scope, usersService) {
       $scope.startUploading = function() {
