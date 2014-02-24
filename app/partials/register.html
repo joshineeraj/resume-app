@@ -3,7 +3,8 @@
 	<div class="col-lg-2">
     </div>
     <div class="col-lg-8">
-    	<form role="form" name='myForm' class="register" ng-model='myForm.error'>
+      <alerts></alerts>
+    	<form role="form" name='myForm' class="register">
             <h2>Registration Form</h2>
           <div class="form-group">
             <label>Your Name</label>
@@ -56,7 +57,7 @@
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
-            <input type="password" name='password' ng-required class="form-control" ng-change='passwordmatch()' id="exampleInputPassword1" ng-model='user.password' placeholder="Password" ng-minlength=8>
+            <input type="password" name='password' ng-required class="form-control" id="exampleInputPassword1" ng-model='user.password' placeholder="Password" ng-minlength=8>
             <div class="has-error form-control-feedback" ng-show="myForm.password.$dirty && myForm.password.$invalid">
               <small class="has-error form-control-feedback" ng-show="myForm.password.$error.minlength">
                 Your password is required to be at least 8 characters
@@ -65,16 +66,18 @@
           </div>
           <div class="form-group">
             <label for="exampleInputPassword2">Confirm Password</label>
-            <input type="password" name='password2' ng-required  class="form-control" id="exampleInputPassword2" ng-model="user.password2" ng-minlength=8 ng-change='passwordmatch()' placeholder="Password"><alerts></alerts>
+            <input type="password" name='password2' ng-required  class="form-control" id="exampleInputPassword2" ng-model="user.password2" ng-minlength=8 ng-change='passwordmatch()' placeholder="Password">
             <small class="has-error form-control-feedback" ng-show="myForm.password2.$error.minlength">
               Your password is required to be at least 8 characters
             </small>
           </div>
-          <button type="submit" class="btn btn-default" id='register' ng-disabled="myForm.$error || myForm.$invalid" ng-click="addNewUser(user)">Submit</button>
+          <button type="submit" class="btn btn-default" id='register' ng-disabled="myForm.$invalid" ng-click="addNewUser(user)">Submit</button>
           <button ng-model="clear" type="reset" class="btn btn-default">Clear</button>
           <button ng-model="cancel" ng-click="cancel()" type="button" class="btn btn-default">Cancel</button>
         </form>
     </div>
+          
+          {{myForm.error}}
     <div class="col-lg-2">
     </div>
 </div>

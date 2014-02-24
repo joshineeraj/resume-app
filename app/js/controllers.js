@@ -78,28 +78,57 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	})
 
 	.controller("UsersRegisterCtrl", function ($scope,$rootScope, $location, $timeout, usersService, cfpLoadingBar, onAlert){
-		
+		var myForm_errors = {"email":true,
+								"password":true}
 		$scope.addNewUser = function(user){
-			usersService.addNewUser(user).then(function(user) {
-				cfpLoadingBar.start();
-				$location.path('/login');
-				cfpLoadingBar.complete();
-			});
+			$scope.myForm.error = false;
+			//to be moved into alert services
+			if (JSON.stringify(myForm_errors) != "{}"){
+				console.log("Error obj set");
+				$scope.myForm.error = true;
+				if ("email" in myForm_errors){
+					onAlert.errorEvent("Email invalid");
+				} else if ("password" in myForm_errors){
+					onAlert.errorEvent("Password error");
+				}
+				
+			}else{
+				$scope.myForm.error = false;
+				console.log("No errors");
+			}
+
+			if(!$scope.myForm.error){
+					usersService.addNewUser(user).then(function(user) {
+					cfpLoadingBar.start();
+					$location.path('/login');
+					cfpLoadingBar.complete();
+				});
+			}else{
+				console.log("Service not called");
+				$scope.myForm.error = true;
+			}
 		}
 		$scope.passwordmatch = function(){
 			$scope.alerts = onAlert.alerts;
 			var check = $scope.user.password == $scope.user.password2;
 			if(check){
 				console.log("Password matches");
-				document.getElementById("register").disabled = false;
-				onAlert.successEvent("password matches");
+				onAlert.clearAlerts();
+				//$scope.myForm.errors["password"] = false;
+				if (myForm_errors){
+					if ("password" in myForm_errors){
+						delete myForm_errors.password;	
+					}	
+				}
 			}else{
 				console.log("password not matches");
 				document.getElementById("register").disabled = true;
 				onAlert.errorEvent("password not matches");
+				myForm_errors["password"] = true;
 			}
 		}
 		
+
 		$scope.cancel = function(){
 			$location.path('/login');
 		   }
@@ -110,18 +139,18 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 				if(!user.success){
 					document.getElementById("register").disabled = true;
 					onAlert.errorEvent("Email already exist! Please try with another email");
+					myForm_errors["email"] = true;
 				}
 				else{
 					onAlert.clearAlerts();
+					if(myForm_errors){
+						if ("email" in myForm_errors){
+							delete myForm_errors.email;
+						}
+					}
 				}
 			});
 		}
-		
-		// $scope.clearalerts = function()
-		// {
-		  // onAlert.clearAlerts();
-		  // }
-		
 		
     	// fake the initial load so first time users can see it right away:
 	    cfpLoadingBar.start();
