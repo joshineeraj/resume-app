@@ -5831,10 +5831,9 @@ td.visible-print {
 }
 
 .frontpic img{
-  border-color: #d6e9c6;
-  border: 5px;
-  border-radius: 20px;
-  width:60px;
-  padding-top: 4px
+  border-radius: 50%;
+  width:50px;
+  height:50px;
+
 }
 /*# sourceMappingURL=bootstrap.css.map */
