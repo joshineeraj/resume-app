@@ -111,8 +111,17 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 					document.getElementById("register").disabled = true;
 					onAlert.errorEvent("Email already exist! Please try with another email");
 				}
+				else{
+					onAlert.clearAlerts();
+				}
 			});
 		}
+		
+		// $scope.clearalerts = function()
+		// {
+		  // onAlert.clearAlerts();
+		  // }
+		
 		
     	// fake the initial load so first time users can see it right away:
 	    cfpLoadingBar.start();
