@@ -190,7 +190,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	}])
 	  
 
-  .controller("UserDeleteCtrl", ['$scope','$location', '$routeParams','usersService', '$modal', '$timeout', function($scope, $location, $routeParams, usersService, $modal, $timeout
+  .controller("UserDeleteCtrl", ['$scope','$location', '$routeParams','usersService', '$modal', '$timeout','$route', function($scope, $location, $routeParams, usersService, $modal, $timeout, $route
 ){
 	  //Executes when the controller is created
 	  console.log("In delete controller");
@@ -226,12 +226,9 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 				    // Do your logic to delete Foo.
 					  original.remove().then(function() {
 						  $scope.getUsers();
-						  $location.path('/users');
+						  $location.path("/users");
 						})
-						$location.path('/users');
 				});
-			$location.path('/users');
-		  
       });
 }])
 .controller('ConfirmationController', ['$scope', '$modalInstance', 'data', '$location', 
