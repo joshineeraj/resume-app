@@ -258,7 +258,6 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 			}
 			else if ( (($scope.user.email) == (user.email)) && (($scope.user.password) == (user.password)) ){
 				$rootScope.is_logged = true;
-				$rootScope.logged_in_user.name = user.email;
 				$rootScope.role = user.role;
 				window.sessionStorage.setItem("is_logged", true);
 				cfpLoadingBar.start();
@@ -378,7 +377,6 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 .controller('LogoutCtrl', function($scope, $rootScope,$location, $timeout, FbService){
 	$scope.logout = function() {
 	  $rootScope.is_logged = false;
-	  $rootScope.logged_in_user.name = '{}';
 	  window.sessionStorage.setItem("is_logged", false);
 	  FbService.logout().then(function(response) {
 			  console.log("logout response");
