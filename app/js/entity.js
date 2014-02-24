@@ -3,8 +3,8 @@
 
 angular.module('myApp.entity', []).
 factory('genders', function(){
-	var _gender = [{value:'Male', text:'Male'}, 
-				  {value:'Female', text:'Female'}];	
+	var _gender = [{value:'Male', text:'male'}, 
+				  {value:'Female', text:'female'}];	
 	return{gender: _gender};
 })
 
