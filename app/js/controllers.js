@@ -270,6 +270,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	  
 .controller('LoginCtrl', function($scope, $rootScope, $location, usersService, cfpLoadingBar, $timeout, Facebook, FbService, newUsers, onAlert){
     // And some fancy flags to display messages upon user status change
+    $scope.alerts = onAlert.alerts;
 	if (window.sessionStorage.getItem("is_logged")=="true"){
 		$location.path('/users');
 	}
@@ -287,7 +288,8 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		usersService.chkLogin(user).then(function(user) {
 			console.log(user.role);
 			if (user.error){
-				alert("Email unregistered");
+				onAlert.errorEvent("Email or password not matches");
+				console.log("me at login page");
 			}
 			else if ( (($scope.user.email) == (user.email)) && (($scope.user.password) == (user.password)) ){
 				$rootScope.is_logged = true;
@@ -296,7 +298,6 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 				cfpLoadingBar.start();
 				$location.path('/users');
 			}else{
-				alert("Email or Password is incorrect.");
 				$location.path('/login');
 			}
 		});
