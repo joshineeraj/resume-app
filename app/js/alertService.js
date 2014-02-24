@@ -5,12 +5,12 @@ factory("onAlert", function(){
 	var alerts = {};
 	var _successEvent = function(msg){
 		console.log(msg);
-		clearAlerts();
+		_clearAlerts();
 		addAlert(msg, 'alert-success');
 	}
 	var _errorEvent = function(msg){
 		console.log(msg);
-		clearAlerts();
+		_clearAlerts();
 		addAlert(msg, 'alert-warning');	
 		
 		
@@ -20,7 +20,7 @@ factory("onAlert", function(){
             alerts[type].push(message);
         }
 
-     var clearAlerts = function() {
+     var _clearAlerts = function() {
             if("alert-warning" in alerts){
         		delete alerts["alert-warning"];
         	}else if("alert-success" in alerts){
@@ -30,6 +30,7 @@ factory("onAlert", function(){
        	return{
   		successEvent: _successEvent,
   		errorEvent: _errorEvent,
+		clearAlerts:_clearAlerts, 
   		alerts :alerts
   		
   	}
