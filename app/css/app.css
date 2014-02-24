@@ -128,8 +128,13 @@ social li {
 and (max-width :480px) { 
 	
 	.col-lg-8 {
-		margin:0 auto; /*text-align:center;*/
+		margin:0 auto; 
 }	
+
+.view-profile {
+	text-align:center;
+}
+
 .blog-post h2 {
 	margin-top:10px;
 }
@@ -232,5 +237,9 @@ and (min-width :1198px) {
 
 .left {
 	float:left;
+}
+
+.bold {
+	font-weight:bold;
 }
 	
