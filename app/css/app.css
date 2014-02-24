@@ -128,8 +128,13 @@ social li {
 and (max-width :480px) { 
 	
 	.col-lg-8 {
-		margin:0 auto; text-align:center;
+		margin:0 auto; 
 }	
+
+.view-profile {
+	text-align:center;
+}
+
 .blog-post h2 {
 	margin-top:10px;
 }
@@ -140,6 +145,16 @@ and (max-width :480px) {
 	margin-left:100px;
 }
 
+.contentArea {
+	min-height:0px !important;
+	padding-bottom:0px !important;
+}
+
+.btn {
+		display:block !important;
+		width:100% !important;
+		margin-bottom:10px !important;
+	}
 }
 
 @media only screen 
@@ -220,4 +235,11 @@ and (min-width :1198px) {
 
 }
 
+.left {
+	float:left;
+}
 
+.bold {
+	font-weight:bold;
+}
+	

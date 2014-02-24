@@ -68,7 +68,6 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 				}
 			});
 		}
-		
 		$scope.getUsers();
 		cfpLoadingBar.complete();
 	})
@@ -190,38 +189,63 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		});
 	}])
 	  
-  .controller("UserDeleteCtrl", ['$scope','$location', '$routeParams','usersService', function($scope, $location, $routeParams, usersService, $dialog
+
+  .controller("UserDeleteCtrl", ['$scope','$location', '$routeParams','usersService', '$modal', '$timeout', function($scope, $location, $routeParams, usersService, $modal, $timeout
 ){
 	  //Executes when the controller is created
 	  console.log("In delete controller");
 	  var userId = $routeParams.userId;
 	  var user = {id: userId};
-			
+	  $scope.getUsers = function(){
+			usersService.getUsers().then(
+				function (data) {
+					console.log("Fetch updated users list")
+	    		    $timeout(function() {
+	    		    	$scope.users = data;
+	                });
+				}
+			);
+	  }
 	  
 	  usersService.removeUser(user).then(function(user) {
 		  var original = user;
-		  var msgbox = $dialog.messageBox('Delete Item', 'Are you sure?', [{label:'Yes, I\'m sure', result: 'yes'},{label:'Nope', result: 'no'}]);
-		   msgbox.open().then(function(result){
-            if(result === 'yes') {
-              original.remove().then(function() {
+			$modal.open({
+			    templateUrl: 'partials/confirmation_tpl.html',
+			    backdrop: 'static',
+			    keyboard: false,
+			    resolve: {
+			        data: function() { 
+			            return {
+			                title: 'Delete '+ user.name,
+			                message: 'Click ok to delete '+user.name+', otherwise click cancel.' 
+			            };
+			        }
+			    },
+			    controller: 'ConfirmationController' 
+				}).result.then(function(result) {
+				    // Do your logic to delete Foo.
+					  original.remove().then(function() {
+						  $scope.getUsers();
+						  $location.path('/users');
+						})
 						$location.path('/users');
-					})
-              console.log("deleting item " + item.name);
-            }
+				});
 			$location.path('/users');
-        });
-		  
-		  // var deleteUser = confirm('Are you absolutely sure you want to delete?'); 
-			// console.log(deleteUser);
-			// if (deleteUser) {
-				  // original.remove().then(function() {
-						// $location.path('/users');
-					// })
-			// }else{
-				// $location.path('/users');
-			// }
 		  
       });
+}])
+.controller('ConfirmationController', ['$scope', '$modalInstance', 'data', '$location', 
+    function ($scope, $modalInstance, data, $location) {
+
+    $scope.data = data;
+
+    $scope.ok = function() {
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss();
+    };    
 }])
 .controller('uploadResume', function ($scope, usersService) {
       $scope.startUploading = function() {
@@ -247,6 +271,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	  
 .controller('LoginCtrl', function($scope, $rootScope, $location, usersService, cfpLoadingBar, $timeout, Facebook, FbService, newUsers, onAlert){
     // And some fancy flags to display messages upon user status change
+    $scope.alerts = onAlert.alerts;
 	if (window.sessionStorage.getItem("is_logged")=="true"){
 		$location.path('/users');
 	}
@@ -264,7 +289,8 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		usersService.chkLogin(user).then(function(user) {
 			console.log(user.role);
 			if (user.error){
-				alert("Email unregistered");
+				onAlert.errorEvent("Email or password not matches");
+				console.log("me at login page");
 			}
 			else if ( (($scope.user.email) == (user.email)) && (($scope.user.password) == (user.password)) ){
 				$rootScope.is_logged = true;
@@ -273,7 +299,6 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 				cfpLoadingBar.start();
 				$location.path('/users');
 			}else{
-				alert("Email or Password is incorrect.");
 				$location.path('/login');
 			}
 		});
