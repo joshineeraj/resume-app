@@ -173,8 +173,9 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 				  original.remove().then(function() {
 						$location.path('/users');
 					})
+			}else{
+				$location.path('/users');
 			}
-			// $location.path('/users');
 		  
       });
 }])
