@@ -254,7 +254,8 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 		usersService.chkLogin(user).then(function(user) {
 			console.log(user.role);
 			if (user.error){
-				alert("Email unregistered");
+				//alert("Email unregistered");
+				onAlert.errorEvent("Email unregistered");
 			}
 			else if ( (($scope.user.email) == (user.email)) && (($scope.user.password) == (user.password)) ){
 				$rootScope.is_logged = true;
