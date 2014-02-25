@@ -1,0 +1,26 @@
+{
+  "name": "Resume-app",
+  "version": "0.0.0",
+  "homepage": "https://github.com/joshineeraj/resume-app",
+  "authors": [
+    "Ashish"
+  ],
+  "description": "Resume Application",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-animate": "~1.2.13",
+    "angular-facebook": "~0.2.2",
+    "angular-route": "~1.2.13",
+    "bootstrap": "~3.1.1",
+    "jquery": "~2.1.0",
+    "restangular": "~1.3.1"
+  }
+}

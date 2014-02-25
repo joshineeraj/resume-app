@@ -1,0 +1,25 @@
+{
+  "name": "Resume-app",
+  "version": "0.0.0",
+  "description": "Resume app",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joshineeraj/resume-app.git"
+  },
+  "author": "Neeraj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joshineeraj/resume-app/issues"
+  },
+  "homepage": "https://github.com/joshineeraj/resume-app",
+  "devDependencies": {
+    "bower": "~1.2.8"
+  }
+}
