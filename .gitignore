@@ -1,5 +1,5 @@
-/scripts/web-server.js
+scripts/web-server.js
 node_modules/*
-bower_components
+bower_components/*
 
 
