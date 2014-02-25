@@ -32,49 +32,13 @@
     
 </head>
 <body>
-	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Resume Updation</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-right">
-          	<li><a href=""><span class="glyphicon glyphicon-user" id='btn1' data-container="body" data-toggle="popover" data-placement="bottom" data-content="Logged in User: {{logged_in_user.name}}" ng-show="is_logged"></span>
-                </a>
-              </li>
-            <li><a ui-sref="users" ng-show="is_logged">User list</a></li>
-    		<li><a ui-sref="login" ng-hide="is_logged">Login</a></li>
-    		<li><a ui-sref="logout" ng-show="is_logged" data-ng-disabled="!facebookReady" data-ng-click="logout()">Logout</a></li>
-            	
-              <li>
-                <div class="frontpic">
-                  <img ng-show="fb_user" src='{{logged_in_user.pic.data.url}}'>
-                </div>
-              </li><!-- {{logged_in_user.pic.data.url}} -->
-          </ul>
-
-
-          </div>
+    <section ng-include src="'partials/homeheader.html'"></section>
+    <div class="container">
+      <div class="contentArea">
+    	  <section ui-view></section>
+           <!--<social fbid="joshi.neeraj" twid="joshi_neeraj" gid="mail.neerajjoshi"></social>-->
       </div>
-    </div>
- <div class="container">
-       <div class="contentArea">
-		<section ui-view></section>
-         <!--<social fbid="joshi.neeraj" twid="joshi_neeraj" gid="mail.neerajjoshi"></social>-->
-        </div>
-   		<hr>
-         <ul class="cv-social-media">
-         
-         <a class="animated fadeIn" href="https://www.facebook.com/sharer/sharer.php?s=100" target="_blank"><li id="facebook" class="icon-facebook facebook"></li></a>
-            <a class="animated fadeIn" href='https://twitter.com/intent/tweet?url=http://neerajoshi.com&amp;text=Resume%20application%20in%20AngularJS:%20Facebook,%20Twitter,%20Google+&amp;via=joshi_neeraj' target="_blank"><li id="twitter" class="icon-twitter"></li></a>
-            <a class="animated fadeIn" href="https://plus.google.com/share?url=http://neerajjoshi.com" target="_blank"><li id="email" class="icon-email"></li></a>
-            </ul>
+     	<section ng-include src="'partials/homefooter.html'"></section>
     </div>
    
 	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
@@ -83,7 +47,6 @@
   <script src="../bower_components/angular-animate/angular-animate.min.js"></script>
   <script src="../bower_components/restangular/dist/restangular.min.js"></script>
   <script src="../bower_components/lodash/dist/lodash.underscore.min.js"></script>
-  <!--<script src="../bower_components/angular-route/angular-route.js"></script>-->
   <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
   <script src="../bower_components/angular-facebook/lib/angular-facebook.js"></script>
   <script src="lib/ng-upload.js"></script>
