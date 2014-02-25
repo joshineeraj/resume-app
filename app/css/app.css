@@ -242,4 +242,7 @@ and (min-width :1198px) {
 .bold {
 	font-weight:bold;
 }
-	
+
+input[type="search"]{
+margin-bottom:10px!important;
+}

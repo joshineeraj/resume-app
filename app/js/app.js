@@ -13,7 +13,7 @@ var routes_path =
 };
 // Declare app level module which depends on filters, and services
 angular.module('myApp', [
-  'ngRoute',
+  'ui.router',
   'myApp.entity',
   'myApp.services',
   'myApp.fbService',
@@ -22,16 +22,22 @@ angular.module('myApp', [
   'myApp.alert',
   'restangular',
   'facebook'
-]).
-config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider, $httpProvider) {
+])
+.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+  $urlRouterProvider.otherwise('/login');
+  
+  $stateProvider.state('register', {url: '/register', templateUrl: 'partials/register.html', controller: 'UsersRegisterCtrl' });
+  $stateProvider.state('users', {url: '/users', templateUrl: 'partials/users.html', controller: 'UsersCtrl', requireLogin: true });
+  $stateProvider.state('login', {url: '/login', templateUrl: 'partials/login.html', controller: 'LoginCtrl', requireLogin: false });
+  $stateProvider.state('logout', {url: '/logout', templateUrl: 'partials/logout.html', controller: 'LogoutCtrl', requireLogin: true });
+  $stateProvider.state('useredit', {url: '/user/edit/:userId/', templateUrl: 'partials/editprofile.html', controller: 'UserEditCtrl', requireLogin: true });
+  $stateProvider.state('userdelete', {url: '/user/delete/:userId/', templateUrl: 'partials/users.html', controller: 'UserDeleteCtrl', requireLogin: true });
+  $stateProvider.state('userview', {url: '/user/view/:userId/', templateUrl: 'partials/viewprofile.html', controller: 'UserViewCtrl', requireLogin: true });
 
-  for(var path in routes_path) {
-        $routeProvider.when(path, routes_path[path]);
-    }
-  $routeProvider.otherwise({redirectTo: '/login'});
-  
-  
 }])
+
+
+
 .run(['$rootScope','$location',function($rootScope,$location){
     $rootScope.$on("$locationChangeStart", function(event, next, current) {
     	$rootScope.is_logged = window.sessionStorage.getItem('is_logged');

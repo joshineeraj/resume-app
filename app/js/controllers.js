@@ -159,9 +159,9 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	})
 
   
-	.controller("UserEditCtrl", ['$scope','$location', '$routeParams','usersService', 'genders', 'onAlert', function($scope, $location, $routeParams, usersService, genders, onAlert
+	.controller("UserEditCtrl", ['$scope','$location', '$stateParams','usersService', 'genders', 'onAlert', function($scope, $location, $stateParams, usersService, genders, onAlert
 	){
-		var userId = $routeParams.userId;
+		var userId = $stateParams.userId;
 		$scope.genders = genders.gender;
 		console.log("In edit controller");
 		var user = {id: userId};
@@ -178,10 +178,10 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 
 	}])
 	  
-	.controller("UserViewCtrl", ['$scope','$location', '$routeParams','usersService','newUsers', function($scope, $location, $routeParams, usersService, newUsers
+	.controller("UserViewCtrl", ['$scope','$location', '$stateParams','usersService','newUsers', function($scope, $location, $stateParams, usersService, newUsers
 ){
 		//Executes when the controller is created
-		var userId = $routeParams.userId;
+		var userId = $stateParams.userId;
 		var user = {id: userId};
 		usersService.fetchUser(user).then(function(user) {
 			var original = user;
@@ -190,11 +190,11 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	}])
 	  
 
-  .controller("UserDeleteCtrl", ['$scope','$location', '$routeParams','usersService', '$modal', '$timeout', function($scope, $location, $routeParams, usersService, $modal, $timeout
-){
+  .controller("UserDeleteCtrl", ['$scope','$location', '$stateParams','usersService', '$modal', '$timeout', 
+  	function ($scope, $location, $stateParams, usersService, $modal, $timeout) {
 	  //Executes when the controller is created
 	  console.log("In delete controller");
-	  var userId = $routeParams.userId;
+	  var userId = $stateParams.userId;
 	  var user = {id: userId};
 	  $scope.getUsers = function(){
 			usersService.getUsers().then(
@@ -226,12 +226,9 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 				    // Do your logic to delete Foo.
 					  original.remove().then(function() {
 						  $scope.getUsers();
-						  $location.path('/users');
+						  $location.path("/users");
 						})
-						$location.path('/users');
 				});
-			$location.path('/users');
-		  
       });
 }])
 .controller('ConfirmationController', ['$scope', '$modalInstance', 'data', '$location', 
@@ -245,6 +242,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 
     $scope.cancel = function() {
         $modalInstance.dismiss();
+        $location.path("/users");
     };    
 }])
 .controller('uploadResume', function ($scope, usersService) {
