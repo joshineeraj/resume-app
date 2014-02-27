@@ -10,7 +10,20 @@
             <input type="search" class="form-control" placeholder="Search..." ng-model="search" ng-show="is_logged">
          </form>
 		 
-        <div class="table-responsive">
+        <div class="btn-group" data-ng-class="{open: open}">
+                <button class="btn">Filter by Qualification</button>
+                <button class="btn dropdown-toggle" data-ng-click="open!=open"><span class="caret"></span></button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+					<li><a ng-click="checkAll()"><i class="icon-ok pull-right"></i>  Check All</a></li>
+                    <li><a ng-click="selectedQualification=[];"><i class="icon-remove-sign"></i>  Uncheck All</a></li>
+           
+                    <li data-ng-repeat="user in users_for_li | unique:'qualification'"> <a ng-click="setSelectedClient()">{{user.qualification}}<span ng-class="isChecked(user.qualification)" ></span></a>
+
+                    </li>
+                </ul>
+            </div>
+		
+		<div class="table-responsive">
         <table class="table">
             <thead>
                 <tr>
@@ -26,7 +39,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-class="{alt: $even, odd: $odd}" ng-repeat="user in users | filter:search | orderBy:orderByField:reverseSort">
+                <tr ng-class="{alt: $even, odd: $odd}" ng-repeat="user in users= (users_for_li | companyFilter:selectedQualification) | filter:search|orderBy:orderByField:reverseSort">
                     <td><a href="" ng-click="open(user)">{{user.name}}</a></td>
                     <td>{{user.email}}</td>
                     <td>{{user.qualification}}</edit-in-place></td>
