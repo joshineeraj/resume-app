@@ -20,6 +20,7 @@ angular.module('myApp', [
   'myApp.directives',
   'myApp.controllers',
   'myApp.alert',
+  'myApp.filters',
   'restangular',
   'facebook'
 ])

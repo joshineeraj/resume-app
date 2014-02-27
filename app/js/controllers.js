@@ -18,6 +18,7 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 							$scope.intentLogin();
 						}
 						$scope.users = data;
+						$scope.users_for_li = data;
 					}else{
 						$location.path('/login');
 					}
@@ -56,7 +57,6 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 			$location.path('/users');
 		};
 		
-		
 		$scope.open = function (user) {
 			var modalInstance = $modal.open({
 				templateUrl: 'partials/quick-preview.html',
@@ -68,6 +68,27 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 				}
 			});
 		}
+		$scope.selectedQualification = [];
+		$scope.setSelectedClient = function () {
+			var id = this.user.qualification;
+			if (_.contains($scope.selectedQualification,id)) {
+				$scope.selectedQualification = _.without($scope.selectedQualification,id);
+			} else {
+				$scope.selectedQualification.push(id);
+			}
+			return false;
+		};
+		$scope.isChecked = function (id) {
+			if (_.contains($scope.selectedQualification, id)) {
+				return 'icon-ok pull-right';
+			}
+			return false;
+		};
+
+		$scope.checkAll = function () {
+        $scope.selectedQualification = _.pluck($scope.users.qualification, 'id');
+			};
+		
 		$scope.getUsers();
 		cfpLoadingBar.complete();
 	})
@@ -178,8 +199,9 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 
 	}])
 	  
-	.controller("UserViewCtrl", ['$scope','$location', '$stateParams','usersService','newUsers', function($scope, $location, $stateParams, usersService, newUsers
-){
+	.controller("UserViewCtrl", ['$scope','$location', '$stateParams','usersService','newUsers', 'qualifications', function($scope, $location, $stateParams, usersService, newUsers, qualifications
+){		
+		
 		//Executes when the controller is created
 		var userId = $stateParams.userId;
 		var user = {id: userId};
@@ -187,6 +209,16 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 			var original = user;
 			$scope.user = original;
 		});
+		
+		// $scope.setSelectedClient = function () {
+        // var id = qualifications.qualification;
+        // if (_.contains($scope.selectedQualification,id)) {
+            // $scope.selectedQualification = _.without($scope.selectedQualification,id);
+        // } else {
+            // $scope.selectedQualification.push(id);
+        // }
+        // return false;
+    // };
 	}])
 	  
 
@@ -426,3 +458,4 @@ angular.module('myApp.controllers', ['ngUpload', 'chieffancypants.loadingBar', '
 	};
 	$scope.logout();
 });
+
