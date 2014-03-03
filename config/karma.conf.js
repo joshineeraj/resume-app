@@ -3,9 +3,13 @@ module.exports = function(config){
     basePath : '../',
 
     files : [
-      'app/lib/angular/angular.js',
-      'app/lib/angular/angular-*.js',
+      'bower_components/angular/angular.js',
+      'bower_components/angular-facebook/lib/angular-facebook.js',
+      'bower_components/jquery/dist/jquery.js',
+      'bower_components/restangular/dist/restangular.min.js',
+      'bower_components/lodash/dist/lodash.underscore.min.js',
       'test/lib/angular/angular-mocks.js',
+      'app/js/*.js',
       'app/js/**/*.js',
       'test/unit/**/*.js'
     ],
